@@ -25,11 +25,14 @@ Bundle 'Logcat-syntax-highlighter'
 Bundle 'Lokaltog/vim-powerline'
 Bundle 'skammer/vim-css-color'
 Bundle 'groenewege/vim-less'
+Bundle 'AutoComplPop'
+Bundle 'AutoClose'
 
 filetype plugin indent on     " required!
 
 "-----------------------------------------------------------------------------
 " Bundle settings
+"
 "-----------------------------------------------------------------------------
 
 " Logcat-syntax-highlighter
@@ -96,6 +99,10 @@ set fillchars+=vert:\
 " Show line numbers
 " set number
 
+" Auto complete
+filetype plugin on
+set omnifunc=syntaxcomplete#Complete
+
 "-----------------------------------------------------------------------------
 " Key mapping
 "-----------------------------------------------------------------------------
@@ -137,7 +144,10 @@ nnoremap <D-j> mz:m+<CR>`z==
 vnoremap <D-k> :m'<-2<CR>gv=`>my`<mzgv`yo`z
 
 " NERDTree
-nmap <silent> nt :NERDTreeToggle<CR>
+nmap nt :NERDTreeToggle<CR>
 
 " Toggle wrap mode
 nmap \w :setlocal wrap!<CR>:setlocal wrap?<CR>
+
+" Auto complete
+" inoremap <C-Space> <C-x><C-o>
