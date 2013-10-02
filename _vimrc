@@ -23,6 +23,8 @@ Bundle 'molokai'
 Bundle 'The-NERD-tree'
 Bundle 'Logcat-syntax-highlighter'
 Bundle 'Lokaltog/vim-powerline'
+Bundle 'skammer/vim-css-color'
+Bundle 'groenewege/vim-less'
 
 filetype plugin indent on     " required!
 
@@ -42,6 +44,9 @@ au BufRead,BufNewFile *.log set filetype=logcat
 " $ rm ~/Monaco.dfont
 " $ mv ~/Monaco-Powerline.otf ~/Library/Fonts
 let g:Powerline_symbols = 'fancy'
+
+" vim-css-color
+let g:cssColorVimDoNotMessMyUpdatetime = 1
 
 "-----------------------------------------------------------------------------
 " Global Settings
