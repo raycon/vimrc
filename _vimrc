@@ -24,11 +24,13 @@ Bundle 'The-NERD-tree'
 Bundle 'Logcat-syntax-highlighter'
 Bundle 'Lokaltog/vim-powerline'
 Bundle 'AutoComplPop'
+Bundle 'AutoClose'
 
 filetype plugin indent on     " required!
 
 "-----------------------------------------------------------------------------
 " Bundle settings
+"
 "-----------------------------------------------------------------------------
 
 " Logcat-syntax-highlighter
