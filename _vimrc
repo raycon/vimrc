@@ -21,32 +21,23 @@ Bundle 'gmarik/vundle'
 " The bundles you install will be listed here
 Bundle 'molokai'
 Bundle 'The-NERD-tree'
-Bundle 'Logcat-syntax-highlighter'
-Bundle 'Lokaltog/vim-powerline'
+Bundle 'bling/vim-airline'
 Bundle 'skammer/vim-css-color'
 Bundle 'groenewege/vim-less'
 Bundle 'AutoComplPop'
-Bundle 'AutoClose'
 
 filetype plugin indent on     " required!
 
 "-----------------------------------------------------------------------------
 " Bundle settings
-"
 "-----------------------------------------------------------------------------
 
-" Logcat-syntax-highlighter
-au BufRead,BufNewFile *.logcat set filetype=logcat
-au BufRead,BufNewFile *.log set filetype=logcat
+" Molokai
+colorscheme molokai
 
-" Powerline fontpatch
-" $ brew update
-" $ brew install fontforge
-" $ cp /system/Library/Fonts/Monaco.dfont ~/
-" $ fontforge -script ~/.vim/bundle/vim-powerline/fontpatcher/fontpatcher ~/Monaco.dfont
-" $ rm ~/Monaco.dfont
-" $ mv ~/Monaco-Powerline.otf ~/Library/Fonts
-let g:Powerline_symbols = 'fancy'
+" Airline
+let g:airline_powerline_fonts = 1
+" let g:airline_theme='powerlineish'
 
 " vim-css-color
 let g:cssColorVimDoNotMessMyUpdatetime = 1
@@ -57,9 +48,6 @@ let g:cssColorVimDoNotMessMyUpdatetime = 1
 
 " Switch on syntax highlighting.
 syntax on
-
-" Theme
-colorscheme molokai
 
 " Use 4 spaces instead of tab
 set tabstop=4       " Column counts for tab
@@ -79,17 +67,26 @@ set hlsearch        " Enable search highlighting
 set backspace=2
 
 " tell VIM to always put a status line in, even if there is only one window
-" (related with powerline)
+" (related with airline)
 set laststatus=2
 
 " Keep some stuff in the history
 set history=100
 
+" Encoding
+set encoding=utf-8
+
+" Change menu to English
+lang mes en_US
+source $VIMRUNTIME/delmenu.vim
+source $VIMRUNTIME/menu.vim
+
 " Font
 if has("unix")
     set guifont=Monaco\ for\ Powerline:h13
 elseif has("win32")
-    set guifont=Monaco:h10:cANSI
+    source $VIMRUNTIME/mswin.vim
+    set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h10
     set guifontwide=NanumGothicCoding:h10:cDEFAULT
 endif
 
@@ -99,7 +96,8 @@ set fillchars+=vert:\
 " Show line numbers
 " set number
 
-" Auto complete
+" Omni completion
+" http://vim.wikia.com/wiki/Omni_completion
 filetype plugin on
 set omnifunc=syntaxcomplete#Complete
 
@@ -144,7 +142,7 @@ nnoremap <D-j> mz:m+<CR>`z==
 vnoremap <D-k> :m'<-2<CR>gv=`>my`<mzgv`yo`z
 
 " NERDTree
-nmap nt :NERDTreeToggle<CR>
+nmap <C-e> :NERDTreeToggle<CR>
 
 " Toggle wrap mode
 nmap \w :setlocal wrap!<CR>:setlocal wrap?<CR>
