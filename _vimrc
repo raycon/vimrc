@@ -84,7 +84,7 @@ source $VIMRUNTIME/menu.vim
 
 " Font
 if has("unix")
-    set guifont=Monaco\ for\ Powerline:h13
+    set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h14
 elseif has("win32")
     source $VIMRUNTIME/mswin.vim
     set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h10
