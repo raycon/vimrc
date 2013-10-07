@@ -25,6 +25,7 @@ Bundle 'bling/vim-airline'
 Bundle 'skammer/vim-css-color'
 Bundle 'groenewege/vim-less'
 Bundle 'AutoComplPop'
+Bundle 'ctrlp.vim'
 
 filetype plugin indent on     " required!
 
