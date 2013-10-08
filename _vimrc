@@ -133,8 +133,8 @@ let mapleader = "\<space>"
 nmap j gj
 nmap k gk
 
-" turn off search highlight
-nmap <silent> ,h :nohlsearch<cr>
+" Toggle search highlight
+noremap <silent> <Leader>h :set hlsearch! hlsearch?<CR>
 
 " buffer navigation
 map <c-j> <c-w>j
