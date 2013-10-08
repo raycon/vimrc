@@ -42,6 +42,8 @@ Bundle 'ap/vim-css-color'
 Bundle 'groenewege/vim-less'
 " Full path fuzzy file, buffer, mru, tag, ... finder for Vim.
 Bundle 'ctrlp.vim'
+" JSON syntax highlighting
+Bundle 'elzr/vim-json'
 " Source navigation
 Bundle 'EasyMotion'
 
@@ -63,6 +65,9 @@ let g:cssColorVimDoNotMessMyUpdatetime = 1
 
 " EasyMotion
 let g:EasyMotion_leader_key = '<Leader>' 
+
+" vim-json 
+au BufRead,BufNewFile *.json set filetype=json
 
 "-------------------------------------------------------------------------------
 " Global Settings
@@ -98,10 +103,13 @@ set history=100
 " Encoding
 set encoding=utf-8
 
-" Change menu to English
+" Set language
 lang mes en_US
-source $VIMRUNTIME/delmenu.vim
-source $VIMRUNTIME/menu.vim
+
+" GUI options
+set guioptions-=m   "remove menu bar
+set guioptions-=T   "remove toolbar
+" set guioptions-=r "remove right-hand scroll bar
 
 " Font
 if has("unix")
@@ -117,6 +125,9 @@ set fillchars+=vert:\
 
 " Show line numbers
 " set number
+
+" Automatically change the current directory
+autocmd BufEnter * silent! lcd %:p:h
 
 " Omni completion
 " http://vim.wikia.com/wiki/Omni_completion
@@ -171,6 +182,9 @@ nmap <C-e> :NERDTreeToggle<CR>
 " Toggle wrap mode
 nmap \w :setlocal wrap!<CR>:setlocal wrap?<CR>
 
+" Toggle number
+nmap <leader>n :set number!<CR>
+
 " Auto complete
 " inoremap <C-Space> <C-x><C-o>
 
@@ -180,3 +194,10 @@ nmap <silent> <leader>gs :vimgrep /<C-r>// %<CR>:ccl<CR>:cwin<CR><C-W>J:nohls<CR
 nmap <silent> <leader>gw :vimgrep /<C-r><C-w>/ %<CR>:ccl<CR>:cwin<CR><C-W>J:nohls<CR>
 " Search the current file for the WORD under the cursor
 nmap <silent> <leader>gW :vimgrep /<C-r><C-a>/ %<CR>:ccl<CR>:cwin<CR><C-W>J:nohls<CR>
+
+"-------------------------------------------------------------------------------
+" Personal usage
+"-------------------------------------------------------------------------------
+
+" Decrypt logs
+map <F8> :! D:\tools\decrypt_vim.bat %:p<CR>:e <C-R>=expand("%:r")."_decrypted.log"<CR>
