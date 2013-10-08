@@ -19,13 +19,21 @@ let $GIT_SSL_NO_VERIFY = 'true'
 Bundle 'gmarik/vundle'
 
 " The bundles you install will be listed here
+
+" Color scheme
 Bundle 'molokai'
+" File explorer
 Bundle 'The-NERD-tree'
+" Beautiful status line
 Bundle 'bling/vim-airline'
-Bundle 'skammer/vim-css-color'
+" Show the colors in css
+Bundle 'ap/vim-css-color'
+" Syntax highlighting for less file
 Bundle 'groenewege/vim-less'
-" Bundle 'AutoComplPop'
+" Full path fuzzy file, buffer, mru, tag, ... finder for Vim.
 Bundle 'ctrlp.vim'
+" Source navigation
+Bundle 'EasyMotion'
 
 filetype plugin indent on     " required!
 
@@ -42,6 +50,9 @@ let g:airline_powerline_fonts = 1
 
 " vim-css-color
 let g:cssColorVimDoNotMessMyUpdatetime = 1
+
+" EasyMotion
+let g:EasyMotion_leader_key = '<Leader>' 
 
 "-----------------------------------------------------------------------------
 " Global Settings
@@ -105,6 +116,8 @@ set omnifunc=syntaxcomplete#Complete
 "-----------------------------------------------------------------------------
 " Key mapping
 "-----------------------------------------------------------------------------
+
+let mapleader = "\<space>"
 
 " j and k move around wrapped line
 nmap j gj
