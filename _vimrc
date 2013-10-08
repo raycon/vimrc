@@ -150,19 +150,19 @@ nnoremap <D-right> :vertical resize +5<CR>
 
 " for moving lines like eclipse
 " Windows
+nnoremap <M-j> mz:m+<CR>`z==
 nnoremap <M-k> mz:m-2<cr>`z==
 inoremap <M-j> <Esc>:m+<CR>==gi
 inoremap <M-k> <Esc>:m-2<CR>==gi
 vnoremap <M-j> :m'>+<CR>gv=`<my`>mzgv`yo`z
-nnoremap <M-j> mz:m+<CR>`z==
 vnoremap <M-k> :m'<-2<CR>gv=`>my`<mzgv`yo`z
 
 " OSX
+nnoremap <D-j> mz:m+<CR>`z==
 nnoremap <D-k> mz:m-2<cr>`z==
 inoremap <D-j> <Esc>:m+<CR>==gi
 inoremap <D-k> <Esc>:m-2<CR>==gi
 vnoremap <D-j> :m'>+<CR>gv=`<my`>mzgv`yo`z
-nnoremap <D-j> mz:m+<CR>`z==
 vnoremap <D-k> :m'<-2<CR>gv=`>my`<mzgv`yo`z
 
 " NERDTree
@@ -173,3 +173,10 @@ nmap \w :setlocal wrap!<CR>:setlocal wrap?<CR>
 
 " Auto complete
 " inoremap <C-Space> <C-x><C-o>
+
+" Search the current file for what's currently in the search register
+nmap <silent> <leader>gs :vimgrep /<C-r>// %<CR>:ccl<CR>:cwin<CR><C-W>J:nohls<CR>
+" Search the current file for the word under the cursor
+nmap <silent> <leader>gw :vimgrep /<C-r><C-w>/ %<CR>:ccl<CR>:cwin<CR><C-W>J:nohls<CR>
+" Search the current file for the WORD under the cursor
+nmap <silent> <leader>gW :vimgrep /<C-r><C-a>/ %<CR>:ccl<CR>:cwin<CR><C-W>J:nohls<CR>
