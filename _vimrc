@@ -90,7 +90,7 @@ set backspace=2
 
 " tell VIM to always put a status line in, even if there is only one window
 " (related with airline)
-" set laststatus=2
+set laststatus=2
 
 " Keep some stuff in the history
 set history=100
