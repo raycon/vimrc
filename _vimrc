@@ -58,13 +58,15 @@ colorscheme molokai
 
 " Airline
 let g:airline_powerline_fonts = 1
-" let g:airline_theme='powerlineish'
 
 " vim-css-color
 let g:cssColorVimDoNotMessMyUpdatetime = 1
 
 " EasyMotion
 let g:EasyMotion_leader_key = '<Leader>' 
+
+" NERDTree
+let NERDTreeChDirMode=2
 
 " vim-json 
 au BufRead,BufNewFile *.json set filetype=json
@@ -100,6 +102,9 @@ set laststatus=2
 " Keep some stuff in the history
 set history=100
 
+" Any buffer can be hidden (keeping its changes) without write
+set hidden
+
 " Encoding
 set encoding=utf-8
 
@@ -127,7 +132,7 @@ set fillchars+=vert:\
 " set number
 
 " Automatically change the current directory
-autocmd BufEnter * silent! lcd %:p:h
+set autochdir
 
 " Omni completion
 " http://vim.wikia.com/wiki/Omni_completion
@@ -147,13 +152,13 @@ nmap k gk
 " Toggle search highlight
 noremap <silent> <Leader>h :set hlsearch! hlsearch?<CR>
 
-" buffer navigation
+" Window navigation
 map <c-j> <c-w>j
 map <c-k> <c-w>k
 map <c-l> <c-w>l
 map <c-h> <c-w>h
 
-" resize current buffer by +/- 5 
+" resize current window by +/- 5 
 nnoremap <D-left> :vertical resize -5<CR>
 nnoremap <D-down> :resize +5<CR>
 nnoremap <D-up> :resize -5<CR>
@@ -177,7 +182,7 @@ vnoremap <D-j> :m'>+<CR>gv=`<my`>mzgv`yo`z
 vnoremap <D-k> :m'<-2<CR>gv=`>my`<mzgv`yo`z
 
 " NERDTree
-nmap <C-e> :NERDTreeToggle<CR>
+nmap <C-e> :NERDTree .<CR>
 
 " Toggle wrap mode
 nmap \w :setlocal wrap!<CR>:setlocal wrap?<CR>
@@ -194,6 +199,11 @@ nmap <silent> <leader>gs :vimgrep /<C-r>// %<CR>:ccl<CR>:cwin<CR><C-W>J:nohls<CR
 nmap <silent> <leader>gw :vimgrep /<C-r><C-w>/ %<CR>:ccl<CR>:cwin<CR><C-W>J:nohls<CR>
 " Search the current file for the WORD under the cursor
 nmap <silent> <leader>gW :vimgrep /<C-r><C-a>/ %<CR>:ccl<CR>:cwin<CR><C-W>J:nohls<CR>
+
+" Easier buffer switching
+nnoremap <M-b> :CtrlPBuffer<CR>
+nnoremap <M-n> :bn<CR>
+nnoremap <M-p> :bp<CR>
 
 "-------------------------------------------------------------------------------
 " Personal usage
