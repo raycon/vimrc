@@ -40,12 +40,10 @@ Bundle 'bling/vim-airline'
 Bundle 'ap/vim-css-color'
 " Syntax highlighting for less file
 Bundle 'groenewege/vim-less'
-" Full path fuzzy file, buffer, mru, tag, ... finder for Vim.
-Bundle 'ctrlp.vim'
-" JSON syntax highlighting
-Bundle 'elzr/vim-json'
 " Source navigation
 Bundle 'EasyMotion'
+" Buffer list in small buffer
+Bundle 'fholgado/minibufexpl.vim'
 
 filetype plugin indent on     " required!
 
@@ -67,9 +65,6 @@ let g:EasyMotion_leader_key = '<Leader>'
 
 " NERDTree
 let NERDTreeChDirMode=2
-
-" vim-json 
-au BufRead,BufNewFile *.json set filetype=json
 
 "-------------------------------------------------------------------------------
 " Global Settings
@@ -153,10 +148,14 @@ nmap k gk
 noremap <silent> <Leader>h :set hlsearch! hlsearch?<CR>
 
 " Window navigation
-map <c-j> <c-w>j
-map <c-k> <c-w>k
-map <c-l> <c-w>l
-map <c-h> <c-w>h
+nnoremap <c-j> <c-w>j
+nnoremap <c-k> <c-w>k
+nnoremap <c-l> <c-w>l
+nnoremap <c-h> <c-w>h
+
+" Easier buffer switching
+nnoremap <C-n> :bn<CR>
+nnoremap <C-p> :bp<CR>
 
 " resize current window by +/- 5 
 nnoremap <D-left> :vertical resize -5<CR>
@@ -188,7 +187,7 @@ nmap <C-e> :NERDTree .<CR>
 nmap \w :setlocal wrap!<CR>:setlocal wrap?<CR>
 
 " Toggle number
-nmap <leader>n :set number!<CR>
+nmap <leader>n :setlocal number!<CR>
 
 " Auto complete
 " inoremap <C-Space> <C-x><C-o>
@@ -199,11 +198,6 @@ nmap <silent> <leader>gs :vimgrep /<C-r>// %<CR>:ccl<CR>:cwin<CR><C-W>J:nohls<CR
 nmap <silent> <leader>gw :vimgrep /<C-r><C-w>/ %<CR>:ccl<CR>:cwin<CR><C-W>J:nohls<CR>
 " Search the current file for the WORD under the cursor
 nmap <silent> <leader>gW :vimgrep /<C-r><C-a>/ %<CR>:ccl<CR>:cwin<CR><C-W>J:nohls<CR>
-
-" Easier buffer switching
-nnoremap <M-b> :CtrlPBuffer<CR>
-nnoremap <M-n> :bn<CR>
-nnoremap <M-p> :bp<CR>
 
 "-------------------------------------------------------------------------------
 " Personal usage
