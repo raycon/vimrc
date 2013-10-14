@@ -130,9 +130,10 @@ set encoding=utf-8
 lang mes en_US
 
 " GUI options
-set guioptions-=m   "remove menu bar
-set guioptions-=T   "remove toolbar
-" set guioptions-=r "remove right-hand scroll bar
+set guioptions-=m   " remove menu bar
+set guioptions-=T   " remove toolbar
+set guioptions-=r   " remove right-hand scroll bar
+set guioptions-=L   " remove right-hand scroll bar
 
 " Font
 if has("unix")
