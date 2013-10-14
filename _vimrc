@@ -72,10 +72,6 @@ nmap <C-e> :NERDTree .<CR>
 
 " MiniBufExplorer
 autocmd VimEnter * MBEOpen  " auto open MBE
-nnoremap <c-j> <c-w>j 
-nnoremap <c-k> <c-w>k
-nnoremap <c-l> <c-w>l
-nnoremap <c-h> <c-w>h
 nnoremap <C-n> :MBEbn<CR>
 nnoremap <C-p> :MBEbp<CR>
 map <Leader>b :MBEToggle<CR>
@@ -167,6 +163,12 @@ let mapleader = "\<space>"
 " j and k move around wrapped line
 nmap j gj
 nmap k gk
+
+" Window navigation
+nnoremap <C-j> <c-w>j 
+nnoremap <C-k> <c-w>k
+nnoremap <C-l> <c-w>l
+nnoremap <C-h> <c-w>h
 
 " Toggle search highlight
 noremap <silent> <Leader>h :set hlsearch! hlsearch?<CR>
