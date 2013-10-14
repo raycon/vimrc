@@ -44,6 +44,8 @@ Bundle 'groenewege/vim-less'
 Bundle 'EasyMotion'
 " Buffer list in small buffer
 Bundle 'fholgado/minibufexpl.vim'
+" Add lines to indent-block
+Bundle 'Yggdroot/indentLine'
 
 filetype plugin indent on     " required!
 
@@ -51,7 +53,7 @@ filetype plugin indent on     " required!
 " Bundle settings
 "-------------------------------------------------------------------------------
 
-" Molokai
+" Molokai 
 colorscheme molokai
 
 " Airline
@@ -61,10 +63,20 @@ let g:airline_powerline_fonts = 1
 let g:cssColorVimDoNotMessMyUpdatetime = 1
 
 " EasyMotion
-let g:EasyMotion_leader_key = '<Leader>' 
+let g:EasyMotion_leader_key = ';' 
 
 " NERDTree
-let NERDTreeChDirMode=2
+let NERDTreeChDirMode = 2
+nmap <C-e> :NERDTree .<CR>
+
+" MiniBufExplorer
+nnoremap <c-j> <c-w>j 
+nnoremap <c-k> <c-w>k
+nnoremap <c-l> <c-w>l
+nnoremap <c-h> <c-w>h
+nnoremap <C-n> :MBEbn<CR>
+nnoremap <C-p> :MBEbp<CR>
+map <Leader>b :MBEToggle<CR>
 
 "-------------------------------------------------------------------------------
 " Global Settings
@@ -147,16 +159,6 @@ nmap k gk
 " Toggle search highlight
 noremap <silent> <Leader>h :set hlsearch! hlsearch?<CR>
 
-" Window navigation
-nnoremap <c-j> <c-w>j
-nnoremap <c-k> <c-w>k
-nnoremap <c-l> <c-w>l
-nnoremap <c-h> <c-w>h
-
-" Easier buffer switching
-nnoremap <C-n> :bn<CR>
-nnoremap <C-p> :bp<CR>
-
 " resize current window by +/- 5 
 nnoremap <D-left> :vertical resize -5<CR>
 nnoremap <D-down> :resize +5<CR>
@@ -179,9 +181,6 @@ inoremap <D-j> <Esc>:m+<CR>==gi
 inoremap <D-k> <Esc>:m-2<CR>==gi
 vnoremap <D-j> :m'>+<CR>gv=`<my`>mzgv`yo`z
 vnoremap <D-k> :m'<-2<CR>gv=`>my`<mzgv`yo`z
-
-" NERDTree
-nmap <C-e> :NERDTree .<CR>
 
 " Toggle wrap mode
 nmap \w :setlocal wrap!<CR>:setlocal wrap?<CR>
