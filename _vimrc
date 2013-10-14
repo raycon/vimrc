@@ -47,7 +47,7 @@ Bundle 'fholgado/minibufexpl.vim'
 " Add lines to indent-block
 Bundle 'Yggdroot/indentLine'
 
-filetype plugin indent on     " required!
+filetype plugin indent on   " required!
 
 "-------------------------------------------------------------------------------
 " Bundle settings
@@ -66,10 +66,12 @@ let g:cssColorVimDoNotMessMyUpdatetime = 1
 let g:EasyMotion_leader_key = ';' 
 
 " NERDTree
-let NERDTreeChDirMode = 2
-nmap <C-e> :NERDTree .<CR>
+let NERDTreeChDirMode = 2   " CWD is changed whenever the tree root is changed
+autocmd VimEnter * NERDTree " auto open NERDTree
+nmap <C-e> :NERDTree .<CR> 
 
 " MiniBufExplorer
+autocmd VimEnter * MBEOpen  " auto open MBE
 nnoremap <c-j> <c-w>j 
 nnoremap <c-k> <c-w>k
 nnoremap <c-l> <c-w>l
@@ -89,7 +91,8 @@ syntax on
 set tabstop=4       " Column counts for tab
 set shiftwidth=4    " Column counts for <<, >>
 set softtabstop=4   " Space count for tab key in INSERT mode
-set expandtab       " Change tab to spaces
+set smarttab        " When off, <Tab> will not inserts spaces according to 'shiftwidth' in front of a line
+set expandtab       " Use spaces instead of tabs
 set autoindent      " Copy indent from current line when starting a new line
 
 " Search
@@ -111,6 +114,14 @@ set history=100
 
 " Any buffer can be hidden (keeping its changes) without write
 set hidden
+
+" Turn backup off, since most stuff is in SVN, git et.c anyway...
+set nobackup
+set nowb
+set noswapfile
+
+" Don't redraw while executing macros (good performance config)
+set lazyredraw
 
 " Encoding
 set encoding=utf-8
@@ -165,28 +176,28 @@ nnoremap <D-down> :resize +5<CR>
 nnoremap <D-up> :resize -5<CR>
 nnoremap <D-right> :vertical resize +5<CR>
 
-" for moving lines like eclipse
-" Windows
-nnoremap <M-j> mz:m+<CR>`z==
-nnoremap <M-k> mz:m-2<cr>`z==
-inoremap <M-j> <Esc>:m+<CR>==gi
-inoremap <M-k> <Esc>:m-2<CR>==gi
-vnoremap <M-j> :m'>+<CR>gv=`<my`>mzgv`yo`z
-vnoremap <M-k> :m'<-2<CR>gv=`>my`<mzgv`yo`z
+" Move a line of text using ALT+[jk] or Comamnd+[jk] on mac
+nmap <M-j> mz:m+<cr>`z==
+nmap <M-k> mz:m-2<cr>`z==
+imap <D-j> <Esc>:m+<CR>==gi
+imap <D-k> <Esc>:m-2<CR>==gi
+vmap <M-j> :m'>+<CR>gv=`<my`>mzgv`yo`z
+vmap <M-k> :m'<-2<CR>gv=`>my`<mzgv`yo`z
 
-" OSX
-nnoremap <D-j> mz:m+<CR>`z==
-nnoremap <D-k> mz:m-2<cr>`z==
-inoremap <D-j> <Esc>:m+<CR>==gi
-inoremap <D-k> <Esc>:m-2<CR>==gi
-vnoremap <D-j> :m'>+<CR>gv=`<my`>mzgv`yo`z
-vnoremap <D-k> :m'<-2<CR>gv=`>my`<mzgv`yo`z
+if has("mac") || has("macunix")
+    nmap <D-j> <M-j>
+    nmap <D-k> <M-k>
+    imap <D-j> <M-j>
+    imap <D-h> <M-h>
+    vmap <D-j> <M-j>
+    vmap <D-k> <M-k>
+endif
 
 " Toggle wrap mode
-nmap \w :setlocal wrap!<CR>:setlocal wrap?<CR>
+nmap <Leader>w :setlocal wrap!<CR>:setlocal wrap?<CR>
 
 " Toggle number
-nmap <leader>n :setlocal number!<CR>
+nmap <Leader>n :setlocal number!<CR>
 
 " Auto complete
 " inoremap <C-Space> <C-x><C-o>
@@ -197,10 +208,3 @@ nmap <silent> <leader>gs :vimgrep /<C-r>// %<CR>:ccl<CR>:cwin<CR><C-W>J:nohls<CR
 nmap <silent> <leader>gw :vimgrep /<C-r><C-w>/ %<CR>:ccl<CR>:cwin<CR><C-W>J:nohls<CR>
 " Search the current file for the WORD under the cursor
 nmap <silent> <leader>gW :vimgrep /<C-r><C-a>/ %<CR>:ccl<CR>:cwin<CR><C-W>J:nohls<CR>
-
-"-------------------------------------------------------------------------------
-" Personal usage
-"-------------------------------------------------------------------------------
-
-" Decrypt logs
-map <F8> :! D:\tools\decrypt_vim.bat %:p<CR>:e <C-R>=expand("%:r")."_decrypted.log"<CR>
