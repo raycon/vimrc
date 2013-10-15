@@ -47,6 +47,11 @@ Bundle 'fholgado/minibufexpl.vim'
 " Add lines to indent-block
 Bundle 'Yggdroot/indentLine'
 
+" ------  SCRIPTS UNDER TEST
+" Bundle 'bling/vim-bufferline'
+" let g:bufferline_show_bufnr = 0
+" Bundle 'vimwiki/vimwiki'
+
 filetype plugin indent on   " required!
 
 "-------------------------------------------------------------------------------
@@ -66,15 +71,15 @@ let g:cssColorVimDoNotMessMyUpdatetime = 1
 let g:EasyMotion_leader_key = ';' 
 
 " NERDTree
-let NERDTreeChDirMode = 2   " CWD is changed whenever the tree root is changed
-autocmd VimEnter * NERDTree " auto open NERDTree
-nmap <C-e> :NERDTree .<CR> 
+let NERDTreeChDirMode = 2               " CWD is changed whenever the tree root is changed
+autocmd     VimEnter *   NERDTree $HOME " auto open 
+nnoremap    <C-e>       :NERDTree .<CR> 
 
 " MiniBufExplorer
-autocmd VimEnter * MBEOpen  " auto open MBE
-nnoremap <C-n> :MBEbn<CR>
-nnoremap <C-p> :MBEbp<CR>
-map <Leader>b :MBEToggle<CR>
+autocmd     VimEnter *   MBEOpen        " auto open MBE
+nnoremap    <C-n>       :MBEbn<CR>
+nnoremap    <C-p>       :MBEbp<CR>
+nnoremap    <Leader>b   :MBEToggle<CR>
 
 "-------------------------------------------------------------------------------
 " Global Settings
@@ -113,7 +118,7 @@ set hidden
 
 " Turn backup off, since most stuff is in SVN, git et.c anyway...
 set nobackup
-set nowb
+set nowritebackup
 set noswapfile
 
 " Don't redraw while executing macros (good performance config)
@@ -153,6 +158,10 @@ set autochdir
 " http://vim.wikia.com/wiki/Omni_completion
 filetype plugin on
 set omnifunc=syntaxcomplete#Complete
+
+" Initial window size
+" NERD 30 + Buffer 120 = 150
+set lines=100 columns=150
 
 "-------------------------------------------------------------------------------
 " Key mapping
@@ -203,11 +212,11 @@ nmap <Leader>w :setlocal wrap!<CR>:setlocal wrap?<CR>
 nmap <Leader>n :setlocal number!<CR>
 
 " Auto complete
-" inoremap <C-Space> <C-x><C-o>
+inoremap <C-Space> <C-x><C-o>
 
 " Search the current file for what's currently in the search register
-nmap <silent> <leader>gs :vimgrep /<C-r>// %<CR>:ccl<CR>:cwin<CR><C-W>J:nohls<CR>
+nmap <silent> <Leader>gs :vimgrep /<C-r>// %<CR>:ccl<CR>:cwin<CR><C-W>J:nohls<CR>
 " Search the current file for the word under the cursor
-nmap <silent> <leader>gw :vimgrep /<C-r><C-w>/ %<CR>:ccl<CR>:cwin<CR><C-W>J:nohls<CR>
+nmap <silent> <Leader>gw :vimgrep /<C-r><C-w>/ %<CR>:ccl<CR>:cwin<CR><C-W>J:nohls<CR>
 " Search the current file for the WORD under the cursor
-nmap <silent> <leader>gW :vimgrep /<C-r><C-a>/ %<CR>:ccl<CR>:cwin<CR><C-W>J:nohls<CR>
+nmap <silent> <Leader>gW :vimgrep /<C-r><C-a>/ %<CR>:ccl<CR>:cwin<CR><C-W>J:nohls<CR>
