@@ -42,10 +42,9 @@ Bundle 'ap/vim-css-color'
 Bundle 'groenewege/vim-less'
 " Source navigation
 Bundle 'EasyMotion'
-" Buffer list in small buffer
-Bundle 'fholgado/minibufexpl.vim'
 " Add lines to indent-block
 Bundle 'Yggdroot/indentLine'
+Bundle 'terryma/vim-smooth-scroll'
 
 " ------  SCRIPTS UNDER TEST
 " Bundle 'bling/vim-bufferline'
@@ -64,6 +63,11 @@ colorscheme molokai
 " Airline
 let g:airline_powerline_fonts = 1
 
+" Airline - tabline
+let g:airline#extensions#tabline#enabled = 1
+nnoremap    <C-n>       :bn<CR>
+nnoremap    <C-p>       :bp<CR>
+
 " vim-css-color
 let g:cssColorVimDoNotMessMyUpdatetime = 1
 
@@ -73,14 +77,13 @@ let g:EasyMotion_leader_key = ';'
 " NERDTree
 let NERDTreeChDirMode = 2               " CWD is changed whenever the tree root is changed
 autocmd     VimEnter *   NERDTree $HOME " auto open 
+autocmd     VimEnter *   wincmd p       " move the cursor into the main window
 nnoremap    <C-e>       :NERDTree .<CR> 
 
-" MiniBufExplorer
-autocmd     VimEnter *   MBEOpen        " auto open MBE
-nnoremap    <C-n>       :MBEbn<CR>
-nnoremap    <C-p>       :MBEbp<CR>
-nnoremap    <Leader>b   :MBEToggle<CR>
-
+noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 0, 2)<CR>
+noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 0, 2)<CR>
+noremap <silent> <c-b> :call smooth_scroll#up(&scroll*2, 10, 4)<CR>
+noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 10, 4)<CR>
 "-------------------------------------------------------------------------------
 " Global Settings
 "-------------------------------------------------------------------------------
