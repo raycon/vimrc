@@ -9,81 +9,94 @@
 " Remap for easy edit 
 "-------------------------------------------------------------------------------
 
-nmap <silent> ,ev :e $MYVIMRC<CR>
+nmap <silent> ,ev :e  $MYVIMRC<CR>
 nmap <silent> ,sv :so $MYVIMRC<CR>
 
 "-------------------------------------------------------------------------------
 " Vundle Settings
 "-------------------------------------------------------------------------------
 
-set nocompatible               " be iMproved
-filetype off                   " required!
-
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
-
 " Do not use https request to download bundles
 let $GIT_SSL_NO_VERIFY = 'true'
 
-" let Vundle manage Vundle required! 
-Bundle 'gmarik/vundle'
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+" let Vundle manage Vundle, required
+Plugin 'gmarik/Vundle.vim'
 
 " The bundles you install will be listed here
 
 " Color scheme
-Bundle 'molokai'
+Plugin 'blerins/flattown'
 " File explorer
-Bundle 'The-NERD-tree'
+Plugin 'The-NERD-tree'
 " Beautiful status line
-Bundle 'bling/vim-airline'
-" Show the colors in css
-Bundle 'ap/vim-css-color'
-" Syntax highlighting for less file
-Bundle 'groenewege/vim-less'
+Plugin 'bling/vim-airline'
 " Source navigation
-Bundle 'EasyMotion'
-" Add lines to indent-block
-Bundle 'Yggdroot/indentLine'
-Bundle 'terryma/vim-smooth-scroll'
+Plugin 'EasyMotion'
+" Bufkil
+" Unload/delete/wipe a buffer, keep its window(s), display last accessed buffer(s)  
+Plugin 'bufkill.vim'
 
-" ------  SCRIPTS UNDER TEST
-" Bundle 'bling/vim-bufferline'
-" let g:bufferline_show_bufnr = 0
-" Bundle 'vimwiki/vimwiki'
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
 
-filetype plugin indent on   " required!
+" To ignore plugin indent changes, instead use:
+"filetype plugin on
+"
+" Brief help
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+"
+" see :h vundle for more details or wiki for FAQ
+" Put your non-Plugin stuff after this line
+
+"-------------------------------------------------------------------------------
+" VimOutliner
+"-------------------------------------------------------------------------------
+
+" Installation on Windows
+" 1. Download VimOutliner 0.4.0
+"    http://www.vim.org/scripts/script.php?script_id=3515
+" 2. Extract files to '$HOME/vimfiles'
+" 3. Edit 
 
 "-------------------------------------------------------------------------------
 " Bundle settings
 "-------------------------------------------------------------------------------
 
-" Molokai 
-colorscheme molokai
+" Color 
+color flattown
 
 " Airline
 let g:airline_powerline_fonts = 1
 
 " Airline - tabline
 let g:airline#extensions#tabline#enabled = 1
-nnoremap    <C-n>       :bn<CR>
-nnoremap    <C-p>       :bp<CR>
-
-" vim-css-color
-let g:cssColorVimDoNotMessMyUpdatetime = 1
 
 " EasyMotion
 let g:EasyMotion_leader_key = ';' 
 
 " NERDTree
-let NERDTreeChDirMode = 2               " CWD is changed whenever the tree root is changed
-autocmd     VimEnter *   NERDTree $HOME " auto open 
-autocmd     VimEnter *   wincmd p       " move the cursor into the main window
-nnoremap    <C-e>       :NERDTree .<CR> 
+let NERDTreeChDirMode       = 2         " CWD is changed whenever the tree root is changed
+let NERDTreeShowBookmarks   = 1         " Always show bookmarks
+let NERDTreeWinPos          = "right"   " Position to right
+nnoremap    <C-e>   :NERDTree .<CR> 
 
-noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 0, 2)<CR>
-noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 0, 2)<CR>
-noremap <silent> <c-b> :call smooth_scroll#up(&scroll*2, 10, 4)<CR>
-noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 10, 4)<CR>
+" NERDTree - ENTER
+autocmd VimEnter * NERDTree $HOME       " auto open 
+autocmd VimEnter * wincmd p             " move the cursor into the main window
+
 "-------------------------------------------------------------------------------
 " Global Settings
 "-------------------------------------------------------------------------------
@@ -144,52 +157,56 @@ if has("unix")
     set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h14
 elseif has("win32")
     source $VIMRUNTIME/mswin.vim
-    set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h10
+    "set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h10:cANSI
+    set guifont=Consolas:h10:cANSI
     set guifontwide=NanumGothicCoding:h10:cDEFAULT
 endif
 
 " Get rid of | character in split bar
 set fillchars+=vert:\  
 
-" Show line numbers
-" set number
-
 " Automatically change the current directory
 set autochdir
 
 " Omni completion
 " http://vim.wikia.com/wiki/Omni_completion
-filetype plugin on
 set omnifunc=syntaxcomplete#Complete
 
 " Initial window size
 " NERD 30 + Buffer 120 = 150
 set lines=100 columns=150
 
+" Change keyboard layout to english in normal mode
+set noimdisable
+
 "-------------------------------------------------------------------------------
 " Key mapping
 "-------------------------------------------------------------------------------
 
-let mapleader = "\<space>"
+let mapleader = ","
 
 " j and k move around wrapped line
 nmap j gj
 nmap k gk
 
 " Window navigation
-nnoremap <C-j> <c-w>j 
-nnoremap <C-k> <c-w>k
-nnoremap <C-l> <c-w>l
-nnoremap <C-h> <c-w>h
+nmap <C-j> <c-w>j 
+nmap <C-k> <c-w>k
+nmap <C-l> <c-w>l
+nmap <C-h> <c-w>h
 
-" Toggle search highlight
-noremap <silent> <Leader>h :set hlsearch! hlsearch?<CR>
+" Buffer navigation
+nmap <C-n> :bn<CR>
+nmap <C-p> :bp<CR>
+
+" Buffers
+nmap <Leader>bd :bd<CR>
 
 " resize current window by +/- 5 
-nnoremap <D-left> :vertical resize -5<CR>
-nnoremap <D-down> :resize +5<CR>
-nnoremap <D-up> :resize -5<CR>
-nnoremap <D-right> :vertical resize +5<CR>
+nmap <D-left>   :vertical resize -5<CR>
+nmap <D-down>   :resize +5<CR>
+nmap <D-up>     :resize -5<CR>
+nmap <D-right>  :vertical resize +5<CR>
 
 " Move a line of text using ALT+[jk] or Comamnd+[jk] on mac
 nmap <M-j> mz:m+<cr>`z==
@@ -208,6 +225,9 @@ if has("mac") || has("macunix")
     vmap <D-k> <M-k>
 endif
 
+" Toggle search highlight
+noremap <silent> <Leader>h :set hlsearch! hlsearch?<CR>
+
 " Toggle wrap mode
 nmap <Leader>w :setlocal wrap!<CR>:setlocal wrap?<CR>
 
@@ -223,3 +243,10 @@ nmap <silent> <Leader>gs :vimgrep /<C-r>// %<CR>:ccl<CR>:cwin<CR><C-W>J:nohls<CR
 nmap <silent> <Leader>gw :vimgrep /<C-r><C-w>/ %<CR>:ccl<CR>:cwin<CR><C-W>J:nohls<CR>
 " Search the current file for the WORD under the cursor
 nmap <silent> <Leader>gW :vimgrep /<C-r><C-a>/ %<CR>:ccl<CR>:cwin<CR><C-W>J:nohls<CR>
+
+" Folding
+nnoremap <Space> za
+
+" Timestamp
+nnoremap <Leader>t =strftime("%Y-%m-%d %H:%M:%S")<CR>
+inoremap <Leader>t <C-R>=strftime("%Y-%m-%d %H:%M:%S")<CR>
