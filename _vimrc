@@ -69,7 +69,8 @@ filetype plugin indent on    " required
 " 1. Download VimOutliner 0.4.0
 "    http://www.vim.org/scripts/script.php?script_id=3515
 " 2. Extract files to '$HOME/vimfiles'
-" 3. Edit 
+" 3. Open '$HOME/vimfiles/vimoutlinerrc'
+" 4. Change maplocalleader = ',,' to maplocalleader = ','
 
 "-------------------------------------------------------------------------------
 " Bundle settings
