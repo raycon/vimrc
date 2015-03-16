@@ -32,7 +32,6 @@ call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 
 " The bundles you install will be listed here
-
 " Color scheme
 Plugin 'blerins/flattown'
 " File explorer
@@ -44,6 +43,11 @@ Plugin 'EasyMotion'
 " Bufkil
 " Unload/delete/wipe a buffer, keep its window(s), display last accessed buffer(s)  
 Plugin 'bufkill.vim'
+" Markdown support
+Plugin 'godlygeek/tabular'
+Plugin 'plasticboy/vim-markdown'
+" Tagbar
+Plugin 'Tagbar'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -62,22 +66,12 @@ filetype plugin indent on    " required
 " Put your non-Plugin stuff after this line
 
 "-------------------------------------------------------------------------------
-" VimOutliner
-"-------------------------------------------------------------------------------
-
-" Installation on Windows
-" 1. Download VimOutliner 0.4.0
-"    http://www.vim.org/scripts/script.php?script_id=3515
-" 2. Extract files to '$HOME/vimfiles'
-" 3. Open '$HOME/vimfiles/vimoutlinerrc'
-" 4. Change maplocalleader = ',,' to maplocalleader = ','
-
-"-------------------------------------------------------------------------------
 " Bundle settings
 "-------------------------------------------------------------------------------
 
 " Color 
-color flattown
+" Modify flattown.vim > hi Title guifg=#ffd75f
+colorscheme flattown
 
 " Airline
 let g:airline_powerline_fonts = 1
@@ -95,8 +89,48 @@ let NERDTreeWinPos          = "right"   " Position to right
 nnoremap    <C-e>   :NERDTree .<CR> 
 
 " NERDTree - ENTER
-autocmd VimEnter * NERDTree $HOME       " auto open 
+autocmd VimEnter * NERDTree ~/VimNotes  " auto open 
 autocmd VimEnter * wincmd p             " move the cursor into the main window
+
+"-------------------------------------------------------------------------------
+" Markdown and Tagbar
+" https://github.com/majutsushi/tagbar/issues/70
+"-------------------------------------------------------------------------------
+
+" Before use Tagbar plugin. We should install ctags
+" Installation on Windows
+" 1. Download Ctag from 'http://ctags.sf.net'
+" 2. Unzip ctags.exe to 'C:\Program Files\Vim\vimXX'
+" 3. Add '$HOME/.ctags'
+" --langdef=markdown
+" --langmap=markdown:.md
+" --regex-markdown=/^(#+)[ \t]+([^#]*)/\1 \2/h,header,Markdown Headers/
+" --regex-markdown=/\[([^\[]+)\]\(([^\)]+)\)/\1/l,link,Markdown Links/
+" --regex-markdown=/!\[\]\(.*[\/ ](.*\.[a-z]{3})\)/\1/i,image,Markdown Image/
+
+" markdown filetype Identification
+autocmd BufNewFile,BufRead *.md set filetype=markdown
+" Remap toggle shortcut
+nnoremap <silent> <F8> :TagbarToggle<CR>
+let g:tagbar_left = 1
+let g:tagbar_type_markdown = {'ctagstype': 'markdown','kinds' : [ 'h:headings','l:links', 'i:images' ],"sort" : 0}
+
+"-------------------------------------------------------------------------------
+" Tabularize for markdown table align
+" https://gist.github.com/tpope/287147
+"-------------------------------------------------------------------------------
+inoremap <silent> <Bar>   <Bar><Esc>:call <SID>align()<CR>a
+
+function! s:align()
+    let p = '^\s*|\s.*\s|\s*$'
+    if exists(':Tabularize') && getline('.') =~# '^\s*|' && (getline(line('.')-1) =~# p || getline(line('.')+1) =~# p)
+        let column = strlen(substitute(getline('.')[0:col('.')],'[^|]','','g'))
+        let position = strlen(matchstr(getline('.')[0:col('.')],'.*|\s*\zs.*'))
+        Tabularize/|/l1
+        normal! 0
+        call search(repeat('[^|]*|',column).'\s\{-\}'.repeat('.',position),'ce',line('.'))
+    endif
+endfunction
 
 "-------------------------------------------------------------------------------
 " Global Settings
@@ -160,7 +194,7 @@ elseif has("win32")
     source $VIMRUNTIME/mswin.vim
     "set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h10:cANSI
     set guifont=Consolas:h10:cANSI
-    set guifontwide=NanumGothicCoding:h10:cDEFAULT
+    set guifontwide=NanumGothicCoding:h10cDEFAULT
 endif
 
 " Get rid of | character in split bar
@@ -190,18 +224,19 @@ let mapleader = ","
 nmap j gj
 nmap k gk
 
-" Window navigation
-nmap <C-j> <c-w>j 
-nmap <C-k> <c-w>k
-nmap <C-l> <c-w>l
-nmap <C-h> <c-w>h
-
 " Buffer navigation
-nmap <C-n> :bn<CR>
-nmap <C-p> :bp<CR>
+nnoremap <C-n> :bn<CR>
+nnoremap <C-p> :bp<CR>
 
 " Buffers
 nmap <Leader>bd :bd<CR>
+nmap <C-d> :BD<CR>
+
+" Windows navigation
+nmap <C-h> <C-w>h
+nmap <C-j> <C-w>j
+nmap <C-k> <C-w>k
+nmap <C-l> <C-w>l
 
 " resize current window by +/- 5 
 nmap <D-left>   :vertical resize -5<CR>
