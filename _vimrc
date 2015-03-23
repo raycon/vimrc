@@ -46,8 +46,6 @@ Plugin 'bufkill.vim'
 " Markdown support
 Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
-" Tagbar
-Plugin 'Tagbar'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -91,29 +89,6 @@ nnoremap    <C-e>   :NERDTree .<CR>
 " NERDTree - ENTER
 autocmd VimEnter * NERDTree ~/VimNotes  " auto open 
 autocmd VimEnter * wincmd p             " move the cursor into the main window
-
-"-------------------------------------------------------------------------------
-" Markdown and Tagbar
-" https://github.com/majutsushi/tagbar/issues/70
-"-------------------------------------------------------------------------------
-
-" Before use Tagbar plugin. We should install ctags
-" Installation on Windows
-" 1. Download Ctag from 'http://ctags.sf.net'
-" 2. Unzip ctags.exe to 'C:\Program Files\Vim\vimXX'
-" 3. Add '$HOME/.ctags'
-" --langdef=markdown
-" --langmap=markdown:.md
-" --regex-markdown=/^(#+)[ \t]+([^#]*)/\1 \2/h,header,Markdown Headers/
-" --regex-markdown=/\[([^\[]+)\]\(([^\)]+)\)/\1/l,link,Markdown Links/
-" --regex-markdown=/!\[\]\(.*[\/ ](.*\.[a-z]{3})\)/\1/i,image,Markdown Image/
-
-" markdown filetype Identification
-autocmd BufNewFile,BufRead *.md set filetype=markdown
-" Remap toggle shortcut
-nnoremap <silent> <F8> :TagbarToggle<CR>
-let g:tagbar_left = 1
-let g:tagbar_type_markdown = {'ctagstype': 'markdown','kinds' : [ 'h:headings','l:links', 'i:images' ],"sort" : 0}
 
 "-------------------------------------------------------------------------------
 " Tabularize for markdown table align
@@ -286,3 +261,10 @@ nnoremap <Space> za
 " Timestamp
 nnoremap <Leader>t =strftime("%Y-%m-%d %H:%M:%S")<CR>
 inoremap <Leader>t <C-R>=strftime("%Y-%m-%d %H:%M:%S")<CR>
+
+"-------------------------------------------------------------------------------
+" Personal usage
+"-------------------------------------------------------------------------------
+
+" Decrypt logs
+" map <F8> :! D:\tools\decrypt_vim.bat %:p<CR>:e <C-R>=expand("%:r")."_decrypted.log"<CR>
