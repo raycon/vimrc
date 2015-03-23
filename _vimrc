@@ -261,10 +261,3 @@ nnoremap <Space> za
 " Timestamp
 nnoremap <Leader>t =strftime("%Y-%m-%d %H:%M:%S")<CR>
 inoremap <Leader>t <C-R>=strftime("%Y-%m-%d %H:%M:%S")<CR>
-
-"-------------------------------------------------------------------------------
-" Personal usage
-"-------------------------------------------------------------------------------
-
-" Decrypt logs
-" map <F8> :! D:\tools\decrypt_vim.bat %:p<CR>:e <C-R>=expand("%:r")."_decrypted.log"<CR>
