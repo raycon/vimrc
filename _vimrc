@@ -87,7 +87,7 @@ let NERDTreeWinPos          = "right"   " Position to right
 nnoremap    <C-e>   :NERDTree .<CR> 
 
 " NERDTree - ENTER
-autocmd VimEnter * NERDTree ~/VimNotes  " auto open 
+autocmd VimEnter * NERDTree ~/Notes  " auto open 
 autocmd VimEnter * wincmd p             " move the cursor into the main window
 
 "-------------------------------------------------------------------------------
@@ -163,11 +163,10 @@ set guioptions-=r   " remove right-hand scroll bar
 set guioptions-=L   " remove right-hand scroll bar
 
 " Font
-if has("unix")
-    set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h14
+if has("mac")
+    set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h12
 elseif has("win32")
     source $VIMRUNTIME/mswin.vim
-    "set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h10:cANSI
     set guifont=Consolas:h10:cANSI
     set guifontwide=NanumGothicCoding:h10cDEFAULT
 endif
@@ -184,7 +183,7 @@ set omnifunc=syntaxcomplete#Complete
 
 " Initial window size
 " NERD 30 + Buffer 120 = 150
-set lines=100 columns=150
+" set lines=100 columns=150
 
 " Change keyboard layout to english in normal mode
 set noimdisable
@@ -226,15 +225,6 @@ imap <D-j> <Esc>:m+<CR>==gi
 imap <D-k> <Esc>:m-2<CR>==gi
 vmap <M-j> :m'>+<CR>gv=`<my`>mzgv`yo`z
 vmap <M-k> :m'<-2<CR>gv=`>my`<mzgv`yo`z
-
-if has("mac") || has("macunix")
-    nmap <D-j> <M-j>
-    nmap <D-k> <M-k>
-    imap <D-j> <M-j>
-    imap <D-h> <M-h>
-    vmap <D-j> <M-j>
-    vmap <D-k> <M-k>
-endif
 
 " Toggle search highlight
 noremap <silent> <Leader>h :set hlsearch! hlsearch?<CR>
