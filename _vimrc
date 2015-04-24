@@ -34,6 +34,7 @@ Plugin 'gmarik/Vundle.vim'
 " The bundles you install will be listed here
 " Color scheme
 Plugin 'blerins/flattown'
+Plugin 'molokai'
 " File explorer
 Plugin 'The-NERD-tree'
 " Beautiful status line
@@ -46,6 +47,11 @@ Plugin 'bufkill.vim'
 " Markdown support
 Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
+" HTML
+Plugin 'surround.vim'
+Plugin 'snipMate'
+Plugin 'tComment'
+Plugin 'skammer/vim-css-color'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -89,6 +95,9 @@ nnoremap    <C-e>   :NERDTree .<CR>
 " NERDTree - ENTER
 autocmd VimEnter * NERDTree ~/Notes  " auto open 
 autocmd VimEnter * wincmd p             " move the cursor into the main window
+
+" tComment
+map <leader>c <c-_><c-_>
 
 "-------------------------------------------------------------------------------
 " Tabularize for markdown table align
@@ -249,5 +258,5 @@ nmap <silent> <Leader>gW :vimgrep /<C-r><C-a>/ %<CR>:ccl<CR>:cwin<CR><C-W>J:nohl
 nnoremap <Space> za
 
 " Timestamp
-nnoremap <Leader>t =strftime("%Y-%m-%d %H:%M:%S")<CR>
-inoremap <Leader>t <C-R>=strftime("%Y-%m-%d %H:%M:%S")<CR>
+nnoremap <leader>t =strftime("%Y-%m-%d %H:%M:%S")<CR>
+inoremap <leader>t <C-R>=strftime("%Y-%m-%d %H:%M:%S")<CR>
