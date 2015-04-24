@@ -52,6 +52,7 @@ Plugin 'surround.vim'
 Plugin 'snipMate'
 Plugin 'tComment'
 Plugin 'skammer/vim-css-color'
+Plugin 'othree/html5.vim'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
