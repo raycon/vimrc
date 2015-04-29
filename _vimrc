@@ -213,20 +213,13 @@ nnoremap <C-n> :bn<CR>
 nnoremap <C-p> :bp<CR>
 
 " Buffers
-nmap <Leader>bd :bd<CR>
-nmap <C-d> :BD<CR>
+nmap <Leader>d :bd<CR>
 
 " Windows navigation
 nmap <C-h> <C-w>h
 nmap <C-j> <C-w>j
 nmap <C-k> <C-w>k
 nmap <C-l> <C-w>l
-
-" resize current window by +/- 5 
-nmap <D-left>   :vertical resize -5<CR>
-nmap <D-down>   :resize +5<CR>
-nmap <D-up>     :resize -5<CR>
-nmap <D-right>  :vertical resize +5<CR>
 
 " Move a line of text using ALT+[jk] or Comamnd+[jk] on mac
 nmap <M-j> mz:m+<cr>`z==
@@ -248,16 +241,12 @@ nmap <Leader>n :setlocal number!<CR>
 " Auto complete
 inoremap <C-Space> <C-x><C-o>
 
+" Folding
+nnoremap <Space> za
+
 " Search the current file for what's currently in the search register
 nmap <silent> <Leader>gs :vimgrep /<C-r>// %<CR>:ccl<CR>:cwin<CR><C-W>J:nohls<CR>
 " Search the current file for the word under the cursor
 nmap <silent> <Leader>gw :vimgrep /<C-r><C-w>/ %<CR>:ccl<CR>:cwin<CR><C-W>J:nohls<CR>
 " Search the current file for the WORD under the cursor
 nmap <silent> <Leader>gW :vimgrep /<C-r><C-a>/ %<CR>:ccl<CR>:cwin<CR><C-W>J:nohls<CR>
-
-" Folding
-nnoremap <Space> za
-
-" Timestamp
-nnoremap <leader>t =strftime("%Y-%m-%d %H:%M:%S")<CR>
-inoremap <leader>t <C-R>=strftime("%Y-%m-%d %H:%M:%S")<CR>
