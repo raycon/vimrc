@@ -13,7 +13,7 @@ nmap <silent> ,ev :e  $MYVIMRC<CR>
 nmap <silent> ,sv :so $MYVIMRC<CR>
 
 "-------------------------------------------------------------------------------
-" Vundle Settings
+" Vundle - START
 "-------------------------------------------------------------------------------
 
 " Do not use https request to download bundles
@@ -25,28 +25,29 @@ filetype off                  " required
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
 
 " let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
 
-" The bundles you install will be listed here
-" Color scheme
-Plugin 'blerins/flattown'
-Plugin 'molokai'
-" File explorer
-Plugin 'The-NERD-tree'
-" Beautiful status line
-Plugin 'bling/vim-airline'
-" Source navigation
-Plugin 'EasyMotion'
-" Bufkil
-" Unload/delete/wipe a buffer, keep its window(s), display last accessed buffer(s)  
-Plugin 'bufkill.vim'
+"-------------------------------------------------------------------------------
+" ESSENTIAL
+"-------------------------------------------------------------------------------
+
+Plugin 'blerins/flattown'   " Color scheme
+Plugin 'The-NERD-tree'      " File explorer
+Plugin 'bling/vim-airline'  " Beautiful status line
+Plugin 'EasyMotion'         " Source navigation
+Plugin 'AutoClose'          " AutoClose
+Plugin 'bufkill.vim'        " Buffer management
+
+"-------------------------------------------------------------------------------
+" SANDBOX
+"-------------------------------------------------------------------------------
+
 " Markdown support
 Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
+
 " HTML
 Plugin 'surround.vim'
 Plugin 'snipMate'
@@ -54,24 +55,15 @@ Plugin 'tComment'
 Plugin 'skammer/vim-css-color'
 Plugin 'othree/html5.vim'
 
-" All of your Plugins must be added before the following line
+"-------------------------------------------------------------------------------
+" Vundle - END
+"-------------------------------------------------------------------------------
+
 call vundle#end()            " required
 filetype plugin indent on    " required
 
-" To ignore plugin indent changes, instead use:
-"filetype plugin on
-"
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-"
-" see :h vundle for more details or wiki for FAQ
-" Put your non-Plugin stuff after this line
-
 "-------------------------------------------------------------------------------
-" Bundle settings
+" Plugin Settings
 "-------------------------------------------------------------------------------
 
 " Color 
@@ -199,7 +191,7 @@ set omnifunc=syntaxcomplete#Complete
 set noimdisable
 
 "-------------------------------------------------------------------------------
-" Key mapping
+" Key Mapping
 "-------------------------------------------------------------------------------
 
 let mapleader = ","
