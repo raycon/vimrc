@@ -190,6 +190,8 @@ set omnifunc=syntaxcomplete#Complete
 
 " Change keyboard layout to english in normal mode
 set noimdisable
+set iminsert=1
+set imsearch=-1
 
 "-------------------------------------------------------------------------------
 " Key Mapping
@@ -247,7 +249,7 @@ inoremap <lt>/ </<C-X><C-O>
 nnoremap <Space> za
 
 " Indent
-nnoremap = mqHmwgg=G`wzt`q
+nnoremap <c-i> mqHmwgg=G`wzt`q
 
 " Yank all
 nmap ya :%y+<CR>
