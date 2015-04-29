@@ -33,12 +33,14 @@ Plugin 'gmarik/Vundle.vim'
 " ESSENTIAL
 "-------------------------------------------------------------------------------
 
-Plugin 'blerins/flattown'   " Color scheme
-Plugin 'The-NERD-tree'      " File explorer
-Plugin 'bling/vim-airline'  " Beautiful status line
-Plugin 'EasyMotion'         " Source navigation
-Plugin 'AutoClose'          " AutoClose
-Plugin 'bufkill.vim'        " Buffer management
+Plugin 'blerins/flattown'       " Color scheme
+Plugin 'The-NERD-tree'          " File explorer
+Plugin 'bling/vim-airline'      " Beautiful status line
+Plugin 'EasyMotion'             " Source navigation
+Plugin 'delimitMate.vim'        " Auto-completion for quotes, parens, brackets.
+Plugin 'bufkill.vim'            " Buffer management
+Plugin 'tComment'               " Toggle comments
+Plugin 'Yggdroot/indentLine'    " Indent guide line
 
 "-------------------------------------------------------------------------------
 " SANDBOX
@@ -50,10 +52,11 @@ Plugin 'plasticboy/vim-markdown'
 
 " HTML
 Plugin 'surround.vim'
-Plugin 'snipMate'
-Plugin 'tComment'
-Plugin 'skammer/vim-css-color'
 Plugin 'othree/html5.vim'
+Plugin 'skammer/vim-css-color' 
+
+" AutoComplete
+Plugin 'AutoComplPop'
 
 "-------------------------------------------------------------------------------
 " Vundle - END
@@ -86,7 +89,7 @@ let NERDTreeWinPos          = "right"   " Position to right
 nnoremap    <C-e>   :NERDTree .<CR> 
 
 " NERDTree - ENTER
-autocmd VimEnter * NERDTree ~/Notes  " auto open 
+autocmd VimEnter * NERDTree ~/Notes     " auto open 
 autocmd VimEnter * wincmd p             " move the cursor into the main window
 
 " tComment
@@ -171,6 +174,8 @@ elseif has("win32")
     source $VIMRUNTIME/mswin.vim
     set guifont=Consolas:h10:cANSI
     set guifontwide=NanumGothicCoding:h10cDEFAULT
+    " NERD 30 + Buffer 120 = 150
+    set lines=50 columns=150
 endif
 
 " Get rid of | character in split bar
@@ -183,10 +188,6 @@ set autochdir
 " http://vim.wikia.com/wiki/Omni_completion
 set omnifunc=syntaxcomplete#Complete
 
-" Initial window size
-" NERD 30 + Buffer 120 = 150
-" set lines=100 columns=150
-
 " Change keyboard layout to english in normal mode
 set noimdisable
 
@@ -197,8 +198,8 @@ set noimdisable
 let mapleader = ","
 
 " j and k move around wrapped line
-nmap j gj
-nmap k gk
+map j gj
+map k gk
 
 " Buffer navigation
 nnoremap <C-n> :bn<CR>
@@ -216,10 +217,16 @@ nmap <C-l> <C-w>l
 " Move a line of text using ALT+[jk] or Comamnd+[jk] on mac
 nmap <M-j> mz:m+<cr>`z==
 nmap <M-k> mz:m-2<cr>`z==
-imap <D-j> <Esc>:m+<CR>==gi
-imap <D-k> <Esc>:m-2<CR>==gi
+imap <M-j> <Esc>:m+<CR>==gi
+imap <M-k> <Esc>:m-2<CR>==gi
 vmap <M-j> :m'>+<CR>gv=`<my`>mzgv`yo`z
 vmap <M-k> :m'<-2<CR>gv=`>my`<mzgv`yo`z
+nmap <D-j> mz:m+<cr>`z==
+nmap <D-k> mz:m-2<cr>`z==
+imap <D-j> <Esc>:m+<CR>==gi
+imap <D-k> <Esc>:m-2<CR>==gi
+vmap <D-j> :m'>+<CR>gv=`<my`>mzgv`yo`z
+vmap <D-k> :m'<-2<CR>gv=`>my`<mzgv`yo`z
 
 " Toggle search highlight
 noremap <silent> <Leader>h :set hlsearch! hlsearch?<CR>
@@ -233,8 +240,17 @@ nmap <Leader>n :setlocal number!<CR>
 " Auto complete
 inoremap <C-Space> <C-x><C-o>
 
+" Auto complete - Tags
+inoremap <lt>/ </<C-X><C-O>
+
 " Folding
 nnoremap <Space> za
+
+" Indent
+nnoremap = mqHmwgg=G`wzt`q
+
+" Yank all
+nmap ya :%y+<CR>
 
 " Search the current file for what's currently in the search register
 nmap <silent> <Leader>gs :vimgrep /<C-r>// %<CR>:ccl<CR>:cwin<CR><C-W>J:nohls<CR>
