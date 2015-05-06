@@ -54,9 +54,16 @@ Plugin 'plasticboy/vim-markdown'
 Plugin 'surround.vim'
 Plugin 'othree/html5.vim'
 Plugin 'skammer/vim-css-color' 
+Plugin 'matchit.zip'
 
 " AutoComplete
 Plugin 'AutoComplPop'
+
+" File buffer explorer
+Plugin 'ctrlp.vim'
+
+" Highlights problems with syntax
+" Plugin 'Syntastic'
 
 "-------------------------------------------------------------------------------
 " Vundle - END
@@ -81,12 +88,15 @@ let g:airline#extensions#tabline#enabled = 1
 
 " EasyMotion
 let g:EasyMotion_leader_key = ';' 
+nmap w ;w
+nmap b ;b
+nmap B ;B
 
 " NERDTree
 let NERDTreeChDirMode       = 2         " CWD is changed whenever the tree root is changed
 let NERDTreeShowBookmarks   = 1         " Always show bookmarks
 let NERDTreeWinPos          = "right"   " Position to right
-nnoremap    <C-e>   :NERDTree .<CR> 
+nnoremap    <C-e>   :NERDTreeToggle<CR> 
 
 " NERDTree - ENTER
 autocmd VimEnter * NERDTree ~/Notes     " auto open 
@@ -182,7 +192,7 @@ endif
 set fillchars+=vert:\  
 
 " Automatically change the current directory
-set autochdir
+" set autochdir
 
 " Omni completion
 " http://vim.wikia.com/wiki/Omni_completion
@@ -205,7 +215,7 @@ map k gk
 
 " Buffer navigation
 nnoremap <C-n> :bn<CR>
-nnoremap <C-p> :bp<CR>
+" nnoremap <C-p> :bp<CR>
 
 " Buffers
 nmap <Leader>d :bd<CR>
@@ -259,4 +269,19 @@ nmap <silent> <Leader>gs :vimgrep /<C-r>// %<CR>:ccl<CR>:cwin<CR><C-W>J:nohls<CR
 " Search the current file for the word under the cursor
 nmap <silent> <Leader>gw :vimgrep /<C-r><C-w>/ %<CR>:ccl<CR>:cwin<CR><C-W>J:nohls<CR>
 " Search the current file for the WORD under the cursor
-nmap <silent> <Leader>gW :vimgrep /<C-r><C-a>/ %<CR>:ccl<CR>:cwin<CR><C-W>J:nohls<CR>
+nmap <silent> <Leader>gW :vimgrep /<C-r><C-a>/ %<CR>:ccl<CR>:fcwin<CR><C-W>J:nohls<CR>
+
+" Search the word and list result to Quickfix window.
+function! GrepQuickfix()
+    call inputsave()
+    let replacement = input('Search: ')
+    call inputrestore()
+    if !empty(replacement)
+        execute ':vimgrep /'.replacement.'/ '.bufname("%")
+        ccl
+        cwin
+        execute "normal \<c-w>J"
+        nohls
+    endif
+endfunction
+nmap <silent> <Leader>f :call GrepQuickFix()<CR>
