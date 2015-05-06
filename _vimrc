@@ -33,14 +33,15 @@ Plugin 'gmarik/Vundle.vim'
 " ESSENTIAL
 "-------------------------------------------------------------------------------
 
-Plugin 'blerins/flattown'       " Color scheme
-Plugin 'The-NERD-tree'          " File explorer
-Plugin 'bling/vim-airline'      " Beautiful status line
-Plugin 'EasyMotion'             " Source navigation
-Plugin 'delimitMate.vim'        " Auto-completion for quotes, parens, brackets.
-Plugin 'bufkill.vim'            " Buffer management
-Plugin 'tComment'               " Toggle comments
-Plugin 'Yggdroot/indentLine'    " Indent guide line
+Plugin 'blerins/flattown'        " Color scheme
+Plugin 'The-NERD-tree'           " File explorer
+Plugin 'bling/vim-airline'       " Beautiful status line
+Plugin 'EasyMotion'              " Source navigation
+Plugin 'delimitMate.vim'         " Auto-completion for quotes, parens, brackets.
+Plugin 'bufkill.vim'             " Buffer management
+Plugin 'tComment'                " Toggle comments
+Plugin 'Yggdroot/indentLine'     " Indent guide line
+Plugin 'luochen1990/rainbow'     " Colorize parentheses
 
 "-------------------------------------------------------------------------------
 " SANDBOX
@@ -104,6 +105,9 @@ autocmd VimEnter * wincmd p             " move the cursor into the main window
 
 " tComment
 map <leader>c <c-_><c-_>
+
+" Rainbow
+let g:rainbow_active = 1
 
 "-------------------------------------------------------------------------------
 " Tabularize for markdown table align
@@ -274,14 +278,20 @@ nmap <silent> <Leader>gW :vimgrep /<C-r><C-a>/ %<CR>:ccl<CR>:fcwin<CR><C-W>J:noh
 " Search the word and list result to Quickfix window.
 function! GrepQuickfix()
     call inputsave()
-    let replacement = input('Search: ')
+    let replacement = input('Grep: ')
     call inputrestore()
     if !empty(replacement)
-        execute ':vimgrep /'.replacement.'/ '.bufname("%")
-        ccl
-        cwin
-        execute "normal \<c-w>J"
-        nohls
+        try
+            execute ':vimgrep /'.replacement.'/ '.bufname("%")
+            let success=1
+        finally
+            if exists('success')
+                ccl
+                cwin
+                execute "normal \<c-w>J"
+                nohls
+            endif
+        endtry
     endif
 endfunction
-nmap <silent> <Leader>f :call GrepQuickFix()<CR>
+nmap <silent> <C-g> :call GrepQuickfix()<CR>
