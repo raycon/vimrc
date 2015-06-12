@@ -66,6 +66,9 @@ Plugin 'ctrlp.vim'
 " Highlights problems with syntax
 " Plugin 'Syntastic'
 
+Plugin 'taglist.vim'
+Plugin 'wesleyche/SrcExpl'
+
 "-------------------------------------------------------------------------------
 " Vundle - END
 "-------------------------------------------------------------------------------
@@ -94,20 +97,56 @@ nmap b ;b
 nmap B ;B
 
 " NERDTree
-let NERDTreeChDirMode       = 2         " CWD is changed whenever the tree root is changed
+let NERDTreeChDirMode       = 1         " CWD is changed when start NERDTree
 let NERDTreeShowBookmarks   = 1         " Always show bookmarks
-let NERDTreeWinPos          = "right"   " Position to right
 nnoremap    <C-e>   :NERDTreeToggle<CR> 
-
-" NERDTree - ENTER
-autocmd VimEnter * NERDTree ~/Notes     " auto open 
-autocmd VimEnter * wincmd p             " move the cursor into the main window
+nmap        <F9>    :NERDTreeToggle<CR>
 
 " tComment
 map <leader>c <c-_><c-_>
 
 " Rainbow
 let g:rainbow_active = 1
+
+" Taglist
+nmap <F12> :TlistToggle<CR>
+let Tlist_Use_Right_Window = 1
+
+" Source Explorer
+" // The switch of the Source Explorer 
+nmap <F10> :SrcExplToggle<CR> 
+" // Set the height of Source Explorer window 
+let g:SrcExpl_winHeight = 10
+" // Set 100 ms for refreshing the Source Explorer 
+let g:SrcExpl_refreshTime = 100 
+" // Set "Enter" key to jump into the exact definition context 
+let g:SrcExpl_jumpKey = "<ENTER>" 
+" // Set "Space" key for back from the definition context 
+let g:SrcExpl_gobackKey = "<SPACE>" 
+" // In order to avoid conflicts, the Source Explorer should know what plugins
+" // except itself are using buffers. And you need add their buffer names into
+" // below listaccording to the command ":buffers!"
+let g:SrcExpl_pluginList = [ 
+        \ "__Tag_List__", 
+        \ "_NERD_tree_",
+        \ "NERD_tree_1",
+        \ "No Name"
+    \ ] 
+" // Enable/Disable the local definition searching, and note that this is not 
+" // guaranteed to work, the Source Explorer doesn't check the syntax for now. 
+" // It only searches for a match with the keyword according to command 'gd' 
+let g:SrcExpl_searchLocalDef = 1 
+" // Do not let the Source Explorer update the tags file when opening 
+let g:SrcExpl_isUpdateTags = 0 
+" // Use 'Exuberant Ctags' with '--sort=foldcase -R .' or '-L cscope.files' to 
+" // create/update the tags file 
+let g:SrcExpl_updateTagsCmd = "ctags --sort=foldcase -R ." 
+" // Set "<F12>" key for updating the tags file artificially 
+let g:SrcExpl_updateTagsKey = "<F12>" 
+" // Set "<F3>" key for displaying the previous definition in the jump list 
+let g:SrcExpl_prevDefKey = "<F3>" 
+" // Set "<F4>" key for displaying the next definition in the jump list 
+let g:SrcExpl_nextDefKey = "<F4>" 
 
 "-------------------------------------------------------------------------------
 " Tabularize for markdown table align
@@ -295,3 +334,5 @@ function! GrepQuickfix()
     endif
 endfunction
 nmap <silent> <C-g> :call GrepQuickfix()<CR>
+
+let g:EclimNailgunClient = 'external'
