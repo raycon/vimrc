@@ -97,7 +97,7 @@ nmap b ;b
 nmap B ;B
 
 " NERDTree
-let NERDTreeChDirMode       = 1         " CWD is changed when start NERDTree
+au VimEnter * NERDTree                  " Start vim with NERDTree
 let NERDTreeShowBookmarks   = 1         " Always show bookmarks
 nnoremap    <C-e>   :NERDTreeToggle<CR> 
 nmap        <F9>    :NERDTreeToggle<CR>
@@ -169,6 +169,9 @@ endfunction
 " Global Settings
 "-------------------------------------------------------------------------------
 
+" Set pwd
+cd $HOME
+
 " Switch on syntax highlighting.
 syntax on
 
@@ -211,31 +214,8 @@ set lazyredraw
 " Encoding
 set encoding=utf-8
 
-" Set language
-lang mes en_US
-
-" GUI options
-set guioptions-=m   " remove menu bar
-set guioptions-=T   " remove toolbar
-set guioptions-=r   " remove right-hand scroll bar
-set guioptions-=L   " remove right-hand scroll bar
-
-" Font
-if has("mac")
-    set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h12
-elseif has("win32")
-    source $VIMRUNTIME/mswin.vim
-    set guifont=Consolas:h10:cANSI
-    set guifontwide=NanumGothicCoding:h10cDEFAULT
-    " NERD 30 + Buffer 120 = 150
-    set lines=50 columns=150
-endif
-
 " Get rid of | character in split bar
 set fillchars+=vert:\  
-
-" Automatically change the current directory
-" set autochdir
 
 " Omni completion
 " http://vim.wikia.com/wiki/Omni_completion
@@ -245,6 +225,26 @@ set omnifunc=syntaxcomplete#Complete
 set noimdisable
 set iminsert=1
 set imsearch=-1
+
+"-------------------------------------------------------------------------------
+" GUI Settings
+"-------------------------------------------------------------------------------
+
+if has("mac")
+    set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h12
+elseif has("win32")
+    source $VIMRUNTIME/mswin.vim
+    set guifont=Consolas:h10:cANSI
+    set guifontwide=NanumGothicCoding:h10cDEFAULT
+    " NERD 30 + Buffer 120 = 150
+    set lines=50 columns=150
+    set guioptions-=m   " remove menu bar
+    set guioptions-=T   " remove toolbar
+    set guioptions-=r   " remove right-hand scroll bar
+    set guioptions-=L   " remove right-hand scroll bar
+    " Set language
+    lang mes en_US
+endif
 
 "-------------------------------------------------------------------------------
 " Key Mapping
@@ -313,6 +313,14 @@ nmap <silent> <Leader>gs :vimgrep /<C-r>// %<CR>:ccl<CR>:cwin<CR><C-W>J:nohls<CR
 nmap <silent> <Leader>gw :vimgrep /<C-r><C-w>/ %<CR>:ccl<CR>:cwin<CR><C-W>J:nohls<CR>
 " Search the current file for the WORD under the cursor
 nmap <silent> <Leader>gW :vimgrep /<C-r><C-a>/ %<CR>:ccl<CR>:fcwin<CR><C-W>J:nohls<CR>
+" Searches in the current directory and all subdirectories, opening the quickfix window when done
+nmap <F4> :execute "vimgrep /" . expand("<cword>") . "/j **" <Bar> cw<CR>
+" Grep
+nmap <silent> <C-g> :call GrepQuickfix()<CR>
+
+"-------------------------------------------------------------------------------
+" Functions
+"-------------------------------------------------------------------------------
 
 " Search the word and list result to Quickfix window.
 function! GrepQuickfix()
@@ -333,6 +341,3 @@ function! GrepQuickfix()
         endtry
     endif
 endfunction
-nmap <silent> <C-g> :call GrepQuickfix()<CR>
-
-let g:EclimNailgunClient = 'external'
