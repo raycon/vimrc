@@ -66,8 +66,8 @@ Plugin 'ctrlp.vim'
 " Highlights problems with syntax
 " Plugin 'Syntastic'
 
-Plugin 'taglist.vim'
-Plugin 'wesleyche/SrcExpl'
+" Plugin 'taglist.vim'
+" Plugin 'wesleyche/SrcExpl'
 
 "-------------------------------------------------------------------------------
 " Vundle - END
