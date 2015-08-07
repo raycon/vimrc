@@ -1,1 +1,1 @@
-vim -u vimrc +PluginInstall +qall
+vim -u ~/.vim/vimrc +PluginInstall +qall
