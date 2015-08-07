@@ -51,7 +51,7 @@ Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
 
 " HTML
-Plugin 'tpope/surround.vim'
+Plugin 'tpope/vim-surround'
 Plugin 'othree/html5.vim'
 Plugin 'skammer/vim-css-color' 
 Plugin 'vim-scripts/matchit.zip'
