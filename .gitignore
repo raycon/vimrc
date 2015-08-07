@@ -1,5 +1,0 @@
-# exclude everything except vimrc
-/*
-!/vimrc
-!/.gitignore
-!/setup.sh
