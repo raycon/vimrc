@@ -89,9 +89,9 @@ let g:EasyMotion_leader_key = ';;'
 
 " NERDTree
 au VimEnter * NERDTree                  " Start vim with NERDTree
+au VimEnter * wincmd p                  " Move cursor to previous buffer
 let NERDTreeShowBookmarks   = 1         " Always show bookmarks
 nnoremap    <C-e>   :NERDTreeToggle<CR> 
-nmap        <F9>    :NERDTreeToggle<CR>
 
 " tComment
 map <leader>c <c-_><c-_>
