@@ -120,9 +120,6 @@ endfunction
 " Global Settings
 "-------------------------------------------------------------------------------
 
-" Set pwd
-cd $HOME
-
 " Switch on syntax highlighting.
 syntax on
 
@@ -195,6 +192,8 @@ elseif has("win32")
     set guioptions-=L   " remove right-hand scroll bar
     " Set language
     lang mes en_US
+    " Set pwd
+    cd $HOME/Notes
 endif
 
 "-------------------------------------------------------------------------------
