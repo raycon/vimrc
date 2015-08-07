@@ -33,15 +33,14 @@ Plugin 'gmarik/Vundle.vim'
 " ESSENTIAL
 "-------------------------------------------------------------------------------
 
-Plugin 'blerins/flattown'        " Color scheme
-Plugin 'The-NERD-tree'           " File explorer
-Plugin 'bling/vim-airline'       " Beautiful status line
-Plugin 'EasyMotion'              " Source navigation
-Plugin 'delimitMate.vim'         " Auto-completion for quotes, parens, brackets.
-Plugin 'bufkill.vim'             " Buffer management
-Plugin 'tComment'                " Toggle comments
-Plugin 'Yggdroot/indentLine'     " Indent guide line
-Plugin 'luochen1990/rainbow'     " Colorize parentheses
+Plugin 'blerins/flattown'          " Color scheme
+Plugin 'scrooloose/nerdtree'       " File explorer
+Plugin 'bling/vim-airline'         " Beautiful status line
+Plugin 'easymotion/vim-easymotion' " Source navigation
+Plugin 'Raimondi/delimitMate'      " Auto-completion for quotes, parens, brackets.
+Plugin 'tomtom/tcomment_vim'       " Toggle comments
+Plugin 'Yggdroot/indentLine'       " Indent guide line
+Plugin 'luochen1990/rainbow'       " Colorize parentheses
 
 "-------------------------------------------------------------------------------
 " SANDBOX
@@ -52,22 +51,17 @@ Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
 
 " HTML
-Plugin 'surround.vim'
+Plugin 'tpope/surround.vim'
 Plugin 'othree/html5.vim'
 Plugin 'skammer/vim-css-color' 
-Plugin 'matchit.zip'
+Plugin 'vim-scripts/matchit.zip'
 
 " AutoComplete
-Plugin 'AutoComplPop'
+Plugin 'vim-scripts/AutoComplPop'
+Plugin 'ervandew/supertab'       " insert-mode completion with Tab.
 
 " File buffer explorer
-Plugin 'ctrlp.vim'
-
-" Highlights problems with syntax
-" Plugin 'Syntastic'
-
-" Plugin 'taglist.vim'
-" Plugin 'wesleyche/SrcExpl'
+Plugin 'kien/ctrlp.vim'
 
 "-------------------------------------------------------------------------------
 " Vundle - END
@@ -91,10 +85,7 @@ let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 
 " EasyMotion
-let g:EasyMotion_leader_key = ';' 
-nmap w ;w
-nmap b ;b
-nmap B ;B
+let g:EasyMotion_leader_key = ';;' 
 
 " NERDTree
 au VimEnter * NERDTree                  " Start vim with NERDTree
@@ -107,46 +98,6 @@ map <leader>c <c-_><c-_>
 
 " Rainbow
 let g:rainbow_active = 1
-
-" Taglist
-nmap <F12> :TlistToggle<CR>
-let Tlist_Use_Right_Window = 1
-
-" Source Explorer
-" // The switch of the Source Explorer 
-nmap <F10> :SrcExplToggle<CR> 
-" // Set the height of Source Explorer window 
-let g:SrcExpl_winHeight = 10
-" // Set 100 ms for refreshing the Source Explorer 
-let g:SrcExpl_refreshTime = 100 
-" // Set "Enter" key to jump into the exact definition context 
-let g:SrcExpl_jumpKey = "<ENTER>" 
-" // Set "Space" key for back from the definition context 
-let g:SrcExpl_gobackKey = "<SPACE>" 
-" // In order to avoid conflicts, the Source Explorer should know what plugins
-" // except itself are using buffers. And you need add their buffer names into
-" // below listaccording to the command ":buffers!"
-let g:SrcExpl_pluginList = [ 
-        \ "__Tag_List__", 
-        \ "_NERD_tree_",
-        \ "NERD_tree_1",
-        \ "No Name"
-    \ ] 
-" // Enable/Disable the local definition searching, and note that this is not 
-" // guaranteed to work, the Source Explorer doesn't check the syntax for now. 
-" // It only searches for a match with the keyword according to command 'gd' 
-let g:SrcExpl_searchLocalDef = 1 
-" // Do not let the Source Explorer update the tags file when opening 
-let g:SrcExpl_isUpdateTags = 0 
-" // Use 'Exuberant Ctags' with '--sort=foldcase -R .' or '-L cscope.files' to 
-" // create/update the tags file 
-let g:SrcExpl_updateTagsCmd = "ctags --sort=foldcase -R ." 
-" // Set "<F12>" key for updating the tags file artificially 
-let g:SrcExpl_updateTagsKey = "<F12>" 
-" // Set "<F3>" key for displaying the previous definition in the jump list 
-let g:SrcExpl_prevDefKey = "<F3>" 
-" // Set "<F4>" key for displaying the next definition in the jump list 
-let g:SrcExpl_nextDefKey = "<F4>" 
 
 "-------------------------------------------------------------------------------
 " Tabularize for markdown table align
@@ -261,7 +212,7 @@ nnoremap <C-n> :bn<CR>
 " nnoremap <C-p> :bp<CR>
 
 " Buffers
-nmap <Leader>d :bd<CR>
+nmap <leader>d :bd<CR>
 
 " Windows navigation
 nmap <C-h> <C-w>h
@@ -284,13 +235,13 @@ vmap <D-j> :m'>+<CR>gv=`<my`>mzgv`yo`z
 vmap <D-k> :m'<-2<CR>gv=`>my`<mzgv`yo`z
 
 " Toggle search highlight
-noremap <silent> <Leader>h :set hlsearch! hlsearch?<CR>
+noremap <silent><leader>h :set hlsearch! hlsearch?<CR>
 
 " Toggle wrap mode
-nmap <Leader>w :setlocal wrap!<CR>:setlocal wrap?<CR>
+nmap <leader><leader>w :setlocal wrap!<CR>:setlocal wrap?<CR>
 
 " Toggle number
-nmap <Leader>n :setlocal number!<CR>
+nmap <leader><leader>n :setlocal number!<CR>
 
 " Auto complete
 inoremap <C-Space> <C-x><C-o>
@@ -308,11 +259,11 @@ nnoremap <c-i> mqHmwgg=G`wzt`q
 nmap ya :%y+<CR>
 
 " Search the current file for what's currently in the search register
-nmap <silent> <Leader>gs :vimgrep /<C-r>// %<CR>:ccl<CR>:cwin<CR><C-W>J:nohls<CR>
+nmap <silent> <leader>gs :vimgrep /<C-r>// %<CR>:ccl<CR>:cwin<CR><C-W>J:nohls<CR>
 " Search the current file for the word under the cursor
-nmap <silent> <Leader>gw :vimgrep /<C-r><C-w>/ %<CR>:ccl<CR>:cwin<CR><C-W>J:nohls<CR>
+nmap <silent> <leader>gw :vimgrep /<C-r><C-w>/ %<CR>:ccl<CR>:cwin<CR><C-W>J:nohls<CR>
 " Search the current file for the WORD under the cursor
-nmap <silent> <Leader>gW :vimgrep /<C-r><C-a>/ %<CR>:ccl<CR>:fcwin<CR><C-W>J:nohls<CR>
+nmap <silent> <leader>gW :vimgrep /<C-r><C-a>/ %<CR>:ccl<CR>:fcwin<CR><C-W>J:nohls<CR>
 " Searches in the current directory and all subdirectories, opening the quickfix window when done
 nmap <F4> :execute "vimgrep /" . expand("<cword>") . "/j **" <Bar> cw<CR>
 " Grep
