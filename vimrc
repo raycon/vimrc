@@ -264,9 +264,7 @@ nmap <silent> <leader>gw :vimgrep /<C-r><C-w>/ %<CR>:ccl<CR>:cwin<CR><C-W>J:nohl
 " Search the current file for the WORD under the cursor
 nmap <silent> <leader>gW :vimgrep /<C-r><C-a>/ %<CR>:ccl<CR>:fcwin<CR><C-W>J:nohls<CR>
 " Searches in the current directory and all subdirectories, opening the quickfix window when done
-nmap <F4> :execute "vimgrep /" . expand("<cword>") . "/j **" <Bar> cw<CR>
-" Grep
-nmap <silent> <C-g> :call GrepQuickfix()<CR>
+nmap <silent> <C-g> :call GrepInFiles()<CR>
 
 "-------------------------------------------------------------------------------
 " Functions
@@ -289,5 +287,15 @@ function! GrepQuickfix()
                 nohls
             endif
         endtry
+    endif
+endfunction
+
+function! GrepInFiles()
+    call inputsave()
+    let replacement = input('Grep: ')
+    call inputrestore()
+    if !empty(replacement)
+        execute ':vimgrep /'.replacement.'/j **'
+        cwin
     endif
 endfunction
