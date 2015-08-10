@@ -41,6 +41,7 @@ Plugin 'Raimondi/delimitMate'      " Auto-completion for quotes, parens, bracket
 Plugin 'tomtom/tcomment_vim'       " Toggle comments
 Plugin 'Yggdroot/indentLine'       " Indent guide line
 Plugin 'luochen1990/rainbow'       " Colorize parentheses
+Plugin 'qpkorr/vim-bufkill'        " Close buffer without closing window
 
 "-------------------------------------------------------------------------------
 " SANDBOX
@@ -56,6 +57,9 @@ Plugin 'othree/html5.vim'
 Plugin 'skammer/vim-css-color' 
 Plugin 'vim-scripts/matchit.zip'
 
+" JavaScript
+Plugin 'jelera/vim-javascript-syntax'
+
 " AutoComplete
 Plugin 'vim-scripts/AutoComplPop'
 Plugin 'ervandew/supertab'       " insert-mode completion with Tab.
@@ -63,10 +67,12 @@ Plugin 'ervandew/supertab'       " insert-mode completion with Tab.
 " File buffer explorer
 Plugin 'kien/ctrlp.vim'
 
+" Scroll
+Plugin 'terryma/vim-smooth-scroll'
+
 "-------------------------------------------------------------------------------
 " Vundle - END
 "-------------------------------------------------------------------------------
-
 call vundle#end()            " required
 filetype plugin indent on    " required
 
@@ -75,8 +81,9 @@ filetype plugin indent on    " required
 "-------------------------------------------------------------------------------
 
 " Color 
-" Modify flattown.vim > hi Title guifg=#ffd75f
+" :so $VIMRUNTIME/syntax/hitest.vim
 colorscheme flattown
+" au ColorScheme * hi Search guifg=#f5f5f5 guibg=#ad3725 guisp=#487a1a ctermfg=15 ctermbg=2 
 
 " Airline
 let g:airline_powerline_fonts = 1
@@ -85,11 +92,12 @@ let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 
 " EasyMotion
-let g:EasyMotion_leader_key = ';;' 
+let g:EasyMotion_leader_key = ';' 
 
 " NERDTree
 au VimEnter * NERDTree                  " Start vim with NERDTree
 au VimEnter * wincmd p                  " Move cursor to previous buffer
+let NERDTreeChDirMode       = 2         " Sync pwd with NERDTree root
 let NERDTreeShowBookmarks   = 1         " Always show bookmarks
 nnoremap    <C-e>   :NERDTreeToggle<CR> 
 
@@ -98,6 +106,15 @@ map <leader>c <c-_><c-_>
 
 " Rainbow
 let g:rainbow_active = 1
+
+" Smooth scroll
+noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 0, 2)<CR>
+noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 0, 2)<CR>
+noremap <silent> <c-b> :call smooth_scroll#up(&scroll*2, 0, 4)<CR>
+noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 0, 4)<CR>
+
+" CtrlP - use pwd as working directory
+let g:ctrlp_working_path_mode = 'rw'
 
 "-------------------------------------------------------------------------------
 " Tabularize for markdown table align
@@ -182,7 +199,7 @@ if has("mac")
     set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h12
 elseif has("win32")
     source $VIMRUNTIME/mswin.vim
-    set guifont=Consolas:h10:cANSI
+    set guifont=Powerline_Consolas:h10:cANSI
     set guifontwide=NanumGothicCoding:h10cDEFAULT
     " NERD 30 + Buffer 120 = 150
     set lines=50 columns=150
@@ -211,13 +228,16 @@ nnoremap <C-n> :bn<CR>
 " nnoremap <C-p> :bp<CR>
 
 " Buffers
-nmap <leader>d :bd<CR>
+nmap <leader>d :BD<CR>
 
 " Windows navigation
 nmap <C-h> <C-w>h
 nmap <C-j> <C-w>j
 nmap <C-k> <C-w>k
 nmap <C-l> <C-w>l
+
+" Show line numbers
+set number
 
 " Move a line of text using ALT+[jk] or Comamnd+[jk] on mac
 nmap <M-j> mz:m+<cr>`z==
@@ -257,6 +277,14 @@ nnoremap <c-i> mqHmwgg=G`wzt`q
 " Yank all
 nmap ya :%y+<CR>
 
+" Center search results
+nmap n nzz
+nmap N Nzz
+nmap * *zz
+nmap # #zz
+nmap g* g*zz
+nmap g# g#zz
+
 " Search the current file for what's currently in the search register
 nmap <silent> <leader>gs :vimgrep /<C-r>// %<CR>:ccl<CR>:cwin<CR><C-W>J:nohls<CR>
 " Search the current file for the word under the cursor
@@ -267,8 +295,12 @@ nmap <silent> <leader>gW :vimgrep /<C-r><C-a>/ %<CR>:ccl<CR>:fcwin<CR><C-W>J:noh
 nmap <silent> <C-g> :call GrepInFiles()<CR>
 
 "-------------------------------------------------------------------------------
-" Functions
+" Commands & Functions
 "-------------------------------------------------------------------------------
+
+" Highlight variable under cursor
+" :so $VIMRUNTIME/syntax/hitest.vim
+" autocmd CursorMoved * exe printf('match IncSearch /\V\<%s\>/', escape(expand('<cword>'), '/\'))
 
 " Search the word and list result to Quickfix window.
 function! GrepQuickfix()
@@ -290,12 +322,14 @@ function! GrepQuickfix()
     endif
 endfunction
 
+set wildignore+=**/node_modules/**,**/bootstrap**/**,**/plugins/**     " ignores unnecessary files
+
 function! GrepInFiles()
     call inputsave()
-    let replacement = input('Grep: ')
+    let replacement = input(getcwd().' >>> ')
     call inputrestore()
     if !empty(replacement)
-        execute ':vimgrep /'.replacement.'/j **'
-        cwin
+        execute ':silent vimgrep "'.replacement.'"j ./**/*'
+        copen
     endif
 endfunction
