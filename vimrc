@@ -13,39 +13,31 @@ nmap <silent> ,ev :e  $MYVIMRC<CR>
 nmap <silent> ,sv :so $MYVIMRC<CR>
 
 "-------------------------------------------------------------------------------
-" Vundle - START
+" VUNDLE
 "-------------------------------------------------------------------------------
 
 " Do not use https request to download bundles
 let $GIT_SSL_NO_VERIFY = 'true'
 
-set nocompatible              " be iMproved, required
-filetype off                  " required
-
-" set the runtime path to include Vundle and initialize
+set nocompatible
+filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-
-" let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
 
-"-------------------------------------------------------------------------------
-" ESSENTIAL
-"-------------------------------------------------------------------------------
+" Essential --------------------------------------------------------------------
 
 Plugin 'blerins/flattown'          " Color scheme
+Plugin 'Yggdroot/indentLine'       " Indent guide line
+Plugin 'luochen1990/rainbow'       " Colorize parentheses
 Plugin 'scrooloose/nerdtree'       " File explorer
 Plugin 'bling/vim-airline'         " Beautiful status line
 Plugin 'easymotion/vim-easymotion' " Source navigation
 Plugin 'Raimondi/delimitMate'      " Auto-completion for quotes, parens, brackets.
 Plugin 'tomtom/tcomment_vim'       " Toggle comments
-Plugin 'Yggdroot/indentLine'       " Indent guide line
-Plugin 'luochen1990/rainbow'       " Colorize parentheses
 Plugin 'qpkorr/vim-bufkill'        " Close buffer without closing window
 
-"-------------------------------------------------------------------------------
-" SANDBOX
-"-------------------------------------------------------------------------------
+" Sandbox ----------------------------------------------------------------------
 
 " Markdown support
 Plugin 'godlygeek/tabular'
@@ -73,28 +65,22 @@ Plugin 'terryma/vim-smooth-scroll'
 " Toggle Quickfix and Location list
 Plugin 'milkypostman/vim-togglelist'
 
-"-------------------------------------------------------------------------------
-" Vundle - END
-"-------------------------------------------------------------------------------
-call vundle#end()            " required
-filetype plugin indent on    " required
+" VUNDLE END -------------------------------------------------------------------
+
+call vundle#end()
+filetype plugin indent on
 
 "-------------------------------------------------------------------------------
-" Plugin Settings
+" PLUGIN SETTINGS
 "-------------------------------------------------------------------------------
 
-" Color 
-" :so $VIMRUNTIME/syntax/hitest.vim
+" Flattown 
 colorscheme flattown
-" au ColorScheme * hi Search guifg=#f5f5f5 guibg=#ad3725 guisp=#487a1a ctermfg=15 ctermbg=2 
 
 " Airline
-let g:airline_powerline_fonts = 1
-
-" Airline - tabline
-let g:airline#extensions#tabline#enabled = 1
-" Just show the filename (no path) in the tab
-let g:airline#extensions#tabline#fnamemod = ':t'
+let g:airline_powerline_fonts = 1                   " Use powerline font
+let g:airline#extensions#tabline#enabled = 1        " Enable tabline
+let g:airline#extensions#tabline#fnamemod = ':t'    " Just show the filename
 
 " EasyMotion
 let g:EasyMotion_leader_key = ';' 
@@ -110,7 +96,7 @@ nnoremap <F9> :NERDTreeToggle<CR>
 map <leader>c <c-_><c-_>
 
 " Rainbow
-let g:rainbow_active = 1
+let g:rainbow_active = 1                " Enable rainbow
 
 " Smooth scroll
 noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 0, 2)<CR>
@@ -118,41 +104,28 @@ noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 0, 2)<CR>
 noremap <silent> <c-b> :call smooth_scroll#up(&scroll*2, 0, 4)<CR>
 noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 0, 4)<CR>
 
-" CtrlP - use pwd as working directory
-let g:ctrlp_working_path_mode = 'rw'
+" CtrlP
+let g:ctrlp_working_path_mode = 'rw'    " Use pwd as working directory
 
-" delimitMate
-let delimitMate_expand_cr = 1
+" DelimitMate
+let delimitMate_expand_cr = 1           " Add new line after {
 
-"-------------------------------------------------------------------------------
-" Tabularize for markdown table align
-" https://gist.github.com/tpope/287147
-"-------------------------------------------------------------------------------
+" Tabularize
+" Markdown table align
 inoremap <silent> <Bar>   <Bar><Esc>:call <SID>align()<CR>a
 
-function! s:align()
-    let p = '^\s*|\s.*\s|\s*$'
-    if exists(':Tabularize') && getline('.') =~# '^\s*|' && (getline(line('.')-1) =~# p || getline(line('.')+1) =~# p)
-        let column = strlen(substitute(getline('.')[0:col('.')],'[^|]','','g'))
-        let position = strlen(matchstr(getline('.')[0:col('.')],'.*|\s*\zs.*'))
-        Tabularize/|/l1
-        normal! 0
-        call search(repeat('[^|]*|',column).'\s\{-\}'.repeat('.',position),'ce',line('.'))
-    endif
-endfunction
-
 "-------------------------------------------------------------------------------
-" Global Settings
+" GLOBAL SETTINGS
 "-------------------------------------------------------------------------------
 
-" Switch on syntax highlighting.
+" Enable syntax highlighting
 syntax on
 
-" Use 4 spaces instead of tab
+" Space and Tab     " Use 4 spaces instead of tab
 set tabstop=4       " Column counts for tab
 set shiftwidth=4    " Column counts for <<, >>
 set softtabstop=4   " Space count for tab key in INSERT mode
-set smarttab        " When off, <Tab> will not inserts spaces according to 'shiftwidth' in front of a line
+set smarttab        " When off, <Tab> will not inserts spaces in front of a line
 set expandtab       " Use spaces instead of tabs
 set autoindent      " Copy indent from current line when starting a new line
 
@@ -199,30 +172,11 @@ set noimdisable
 set iminsert=1
 set imsearch=-1
 
-"-------------------------------------------------------------------------------
-" GUI Settings
-"-------------------------------------------------------------------------------
-
-if has("mac")
-    set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h12
-elseif has("win32")
-    source $VIMRUNTIME/mswin.vim
-    set guifont=Powerline_Consolas:h10:cANSI
-    set guifontwide=NanumGothicCoding:h10cDEFAULT
-    " NERD 30 + Buffer 120 = 150
-    au VimEnter * set lines=50 columns=150
-    set guioptions-=m   " remove menu bar
-    set guioptions-=T   " remove toolbar
-    set guioptions-=r   " remove right-hand scroll bar
-    set guioptions-=L   " remove right-hand scroll bar
-    " Set language
-    lang mes en_US
-    " Set pwd
-    cd $HOME/Notes
-endif
+" Show line numbers
+set number
 
 "-------------------------------------------------------------------------------
-" Key Mapping
+" KEY MAPPING
 "-------------------------------------------------------------------------------
 
 let mapleader = ","
@@ -244,9 +198,6 @@ nmap <C-j> <C-w>j
 nmap <C-k> <C-w>k
 nmap <C-l> <C-w>l
 
-" Show line numbers
-set number
-
 " Move a line of text using ALT+[jk] or Comamnd+[jk] on mac
 nmap <M-j> mz:m+<cr>`z==
 nmap <M-k> mz:m-2<cr>`z==
@@ -262,18 +213,18 @@ vmap <D-j> :m'>+<CR>gv=`<my`>mzgv`yo`z
 vmap <D-k> :m'<-2<CR>gv=`>my`<mzgv`yo`z
 
 " Toggle search highlight
-noremap <silent><leader>h :set hlsearch! hlsearch?<CR>
+nmap <silent> <leader>h :set hlsearch! hlsearch?<CR>
 
 " Toggle wrap mode
-nmap <leader><leader>w :setlocal wrap!<CR>:setlocal wrap?<CR>
+nmap <leader> <leader>w :setlocal wrap!<CR>:setlocal wrap?<CR>
 
 " Toggle number
-nmap <leader><leader>n :setlocal number!<CR>
+nmap <leader> <leader>n :setlocal number!<CR>
 
 " Auto complete
 inoremap <C-Space> <C-x><C-o>
 
-" Auto complete - Tags
+" Auto complete - XML Tags
 inoremap <lt>/ </<C-X><C-O>
 
 " Folding
@@ -293,16 +244,13 @@ nmap # #zz
 nmap g* g*zz
 nmap g# g#zz
 
-" Search the current file for what's currently in the search register
-nmap <silent> <leader>gs :vimgrep /<C-r>// %<CR>:ccl<CR>:cwin<CR><C-W>J:nohls<CR>
-" Search the current file for the word under the cursor
-nmap <silent> <leader>gw :vimgrep /<C-r><C-w>/ %<CR>:ccl<CR>:cwin<CR><C-W>J:nohls<CR>
-" Search the current file for the WORD under the cursor
-nmap <silent> <leader>gW :vimgrep /<C-r><C-a>/ %<CR>:ccl<CR>:fcwin<CR><C-W>J:nohls<CR>
-" Searches in the current directory and all subdirectories, opening the quickfix window when done
+" VimGrep ----------------------------------------------------------------------
+
 nmap <silent> <C-g> :call GrepInFiles()<CR>
 
-" Quickfix commands 
+" Quickfix ---------------------------------------------------------------------
+
+nmap <script> <silent> <F10> :call ToggleQuickfixList()<CR>
 nmap <f11>   :cprev<cr>
 nmap <s-f11> :cpfile<cr>
 nmap <c-f11> :colder<cr>
@@ -310,38 +258,28 @@ nmap <f12>   :cnext<cr>
 nmap <s-f12> :cnfile<cr>
 nmap <c-f12> :cnewer<cr>
 
-" Toggle Quicifix and Location list
-nmap <script> <silent> <F10> :call ToggleQuickfixList()<CR>
-
 "-------------------------------------------------------------------------------
-" Commands & Functions
+" GUI SETTINGS
 "-------------------------------------------------------------------------------
 
-" Highlight variable under cursor
-" :so $VIMRUNTIME/syntax/hitest.vim
-" autocmd CursorMoved * exe printf('match IncSearch /\V\<%s\>/', escape(expand('<cword>'), '/\'))
+if has("mac")
+    set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h12
+elseif has("win32")
+    source $VIMRUNTIME/mswin.vim
+    au VimEnter * set lines=50 columns=150
+    set guifont=Powerline_Consolas:h10:cANSI
+    set guifontwide=NanumGothicCoding:h10cDEFAULT
+    set guioptions-=m   " remove menu bar
+    set guioptions-=T   " remove toolbar
+    set guioptions-=r   " remove right-hand scroll bar
+    set guioptions-=L   " remove right-hand scroll bar
+    lang mes en_US      " language
+    cd $HOME/Notes      " set pwd
+endif
 
-" Search the word and list result to Quickfix window.
-function! GrepQuickfix()
-    call inputsave()
-    let replacement = input('Grep: ')
-    call inputrestore()
-    if !empty(replacement)
-        try
-            execute ':vimgrep /'.replacement.'/ '.bufname("%")
-            let success=1
-        finally
-            if exists('success')
-                ccl
-                cwin
-                execute "normal \<c-w>J"
-                nohls
-            endif
-        endtry
-    endif
-endfunction
-
-set wildignore+=**/logs/**,**/node_modules/**,**/bootstrap**/**,**/plugins/**     " ignores unnecessary files
+"-------------------------------------------------------------------------------
+" FUNCTIONS
+"-------------------------------------------------------------------------------
 
 function! GrepInFiles()
     call inputsave()
@@ -352,3 +290,24 @@ function! GrepInFiles()
         copen
     endif
 endfunction
+
+function! s:align()
+    let p = '^\s*|\s.*\s|\s*$'
+    if exists(':Tabularize') && getline('.') =~# '^\s*|' && (getline(line('.')-1) =~# p || getline(line('.')+1) =~# p)
+        let column = strlen(substitute(getline('.')[0:col('.')],'[^|]','','g'))
+        let position = strlen(matchstr(getline('.')[0:col('.')],'.*|\s*\zs.*'))
+        Tabularize/|/l1
+        normal! 0
+        call search(repeat('[^|]*|',column).'\s\{-\}'.repeat('.',position),'ce',line('.'))
+    endif
+endfunction
+
+"-------------------------------------------------------------------------------
+" LOCAL SETTINGS
+"-------------------------------------------------------------------------------
+
+" Ignores node.js  files
+set wildignore+=**/logs/**
+set wildignore+=**/node_modules/**
+set wildignore+=**/plugins/**     
+set wildignore+=**/bootstrap**/**
