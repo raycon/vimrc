@@ -293,6 +293,13 @@ nmap <silent> <leader>gw :vimgrep /<C-r><C-w>/ %<CR>:ccl<CR>:cwin<CR><C-W>J:nohl
 nmap <silent> <leader>gW :vimgrep /<C-r><C-a>/ %<CR>:ccl<CR>:fcwin<CR><C-W>J:nohls<CR>
 " Searches in the current directory and all subdirectories, opening the quickfix window when done
 nmap <silent> <C-g> :call GrepInFiles()<CR>
+" Quickfix commands
+nmap <f11>   :cprev<cr>
+nmap <s-f11> :cpfile<cr>
+nmap <c-f11> :colder<cr>
+nmap <f12>   :cnext<cr>
+nmap <s-f12> :cnfile<cr>
+nmap <c-f12> :cnewer<cr>
 
 "-------------------------------------------------------------------------------
 " Commands & Functions
