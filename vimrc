@@ -70,6 +70,9 @@ Plugin 'kien/ctrlp.vim'
 " Scroll
 Plugin 'terryma/vim-smooth-scroll'
 
+" Toggle Quickfix and Location list
+Plugin 'milkypostman/vim-togglelist'
+
 "-------------------------------------------------------------------------------
 " Vundle - END
 "-------------------------------------------------------------------------------
@@ -90,6 +93,8 @@ let g:airline_powerline_fonts = 1
 
 " Airline - tabline
 let g:airline#extensions#tabline#enabled = 1
+" Just show the filename (no path) in the tab
+let g:airline#extensions#tabline#fnamemod = ':t'
 
 " EasyMotion
 let g:EasyMotion_leader_key = ';' 
@@ -99,7 +104,7 @@ au VimEnter * NERDTree                  " Start vim with NERDTree
 au VimEnter * wincmd p                  " Move cursor to previous buffer
 let NERDTreeChDirMode       = 2         " Sync pwd with NERDTree root
 let NERDTreeShowBookmarks   = 1         " Always show bookmarks
-nnoremap    <C-e>   :NERDTreeToggle<CR> 
+nnoremap <F9> :NERDTreeToggle<CR> 
 
 " tComment
 map <leader>c <c-_><c-_>
@@ -115,6 +120,9 @@ noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 0, 4)<CR>
 
 " CtrlP - use pwd as working directory
 let g:ctrlp_working_path_mode = 'rw'
+
+" delimitMate
+let delimitMate_expand_cr = 1
 
 "-------------------------------------------------------------------------------
 " Tabularize for markdown table align
@@ -202,7 +210,7 @@ elseif has("win32")
     set guifont=Powerline_Consolas:h10:cANSI
     set guifontwide=NanumGothicCoding:h10cDEFAULT
     " NERD 30 + Buffer 120 = 150
-    set lines=50 columns=150
+    au VimEnter * set lines=50 columns=150
     set guioptions-=m   " remove menu bar
     set guioptions-=T   " remove toolbar
     set guioptions-=r   " remove right-hand scroll bar
@@ -293,13 +301,17 @@ nmap <silent> <leader>gw :vimgrep /<C-r><C-w>/ %<CR>:ccl<CR>:cwin<CR><C-W>J:nohl
 nmap <silent> <leader>gW :vimgrep /<C-r><C-a>/ %<CR>:ccl<CR>:fcwin<CR><C-W>J:nohls<CR>
 " Searches in the current directory and all subdirectories, opening the quickfix window when done
 nmap <silent> <C-g> :call GrepInFiles()<CR>
-" Quickfix commands
+
+" Quickfix commands 
 nmap <f11>   :cprev<cr>
 nmap <s-f11> :cpfile<cr>
 nmap <c-f11> :colder<cr>
 nmap <f12>   :cnext<cr>
 nmap <s-f12> :cnfile<cr>
 nmap <c-f12> :cnewer<cr>
+
+" Toggle Quicifix and Location list
+nmap <script> <silent> <F10> :call ToggleQuickfixList()<CR>
 
 "-------------------------------------------------------------------------------
 " Commands & Functions
@@ -329,7 +341,7 @@ function! GrepQuickfix()
     endif
 endfunction
 
-set wildignore+=**/node_modules/**,**/bootstrap**/**,**/plugins/**     " ignores unnecessary files
+set wildignore+=**/logs/**,**/node_modules/**,**/bootstrap**/**,**/plugins/**     " ignores unnecessary files
 
 function! GrepInFiles()
     call inputsave()
