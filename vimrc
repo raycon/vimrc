@@ -11,6 +11,7 @@
 
 nmap <silent> ,ev :e  $MYVIMRC<CR>
 nmap <silent> ,sv :so $MYVIMRC<CR>
+nmap <silent> ,pl :PluginList<CR>
 
 "-------------------------------------------------------------------------------
 " VUNDLE
@@ -45,12 +46,14 @@ Plugin 'plasticboy/vim-markdown'
 
 " HTML
 Plugin 'tpope/vim-surround'
-Plugin 'othree/html5.vim'
-Plugin 'skammer/vim-css-color' 
+" Plugin 'othree/html5.vim'
+" Plugin 'skammer/vim-css-color' 
 Plugin 'vim-scripts/matchit.zip'
 
 " JavaScript
 Plugin 'jelera/vim-javascript-syntax'
+" Plugin 'scrooloose/syntastic'      " Syntax checking
+Plugin 'marijnh/tern_for_vim'
 
 " AutoComplete
 Plugin 'vim-scripts/AutoComplPop'
@@ -65,6 +68,9 @@ Plugin 'terryma/vim-smooth-scroll'
 " Toggle Quickfix and Location list
 Plugin 'milkypostman/vim-togglelist'
 
+" Tagbar
+" Plugin 'majutsushi/tagbar'
+
 " VUNDLE END -------------------------------------------------------------------
 
 call vundle#end()
@@ -76,6 +82,7 @@ filetype plugin indent on
 
 " Flattown 
 colorscheme flattown
+set t_Co=256
 
 " Airline
 let g:airline_powerline_fonts = 1                   " Use powerline font
@@ -90,7 +97,7 @@ au VimEnter * NERDTree                  " Start vim with NERDTree
 au VimEnter * wincmd p                  " Move cursor to previous buffer
 let NERDTreeChDirMode       = 2         " Sync pwd with NERDTree root
 let NERDTreeShowBookmarks   = 1         " Always show bookmarks
-nnoremap <F9> :NERDTreeToggle<CR> 
+nnoremap <F7> :NERDTreeToggle<CR> 
 
 " tComment
 map <leader>c <c-_><c-_>
@@ -113,6 +120,7 @@ let delimitMate_expand_cr = 1           " Add new line after {
 " Tabularize
 " Markdown table align
 inoremap <silent> <Bar>   <Bar><Esc>:call <SID>align()<CR>a
+au BufNewFile,BufRead *.markdown,*.mdown,*.mkd,*.mkdn,*.md setf markdown
 
 "-------------------------------------------------------------------------------
 " GLOBAL SETTINGS
@@ -120,6 +128,9 @@ inoremap <silent> <Bar>   <Bar><Esc>:call <SID>align()<CR>a
 
 " Enable syntax highlighting
 syntax on
+
+" Set 7 line padding to cursor
+set so=7
 
 " Space and Tab     " Use 4 spaces instead of tab
 set tabstop=4       " Column counts for tab
@@ -246,10 +257,10 @@ nmap g# g#zz
 
 " VimGrep ----------------------------------------------------------------------
 
-nmap <silent> <C-g> :call GrepInFiles()<CR>
+nmap <silent> <C-g> :call GrepInFiles()<CR> 
 
 " Quickfix ---------------------------------------------------------------------
-
+nmap <script> <silent> <F9>  :call ToggleLocationList()<CR>
 nmap <script> <silent> <F10> :call ToggleQuickfixList()<CR>
 nmap <f11>   :cprev<cr>
 nmap <s-f11> :cpfile<cr>
@@ -301,13 +312,3 @@ function! s:align()
         call search(repeat('[^|]*|',column).'\s\{-\}'.repeat('.',position),'ce',line('.'))
     endif
 endfunction
-
-"-------------------------------------------------------------------------------
-" LOCAL SETTINGS
-"-------------------------------------------------------------------------------
-
-" Ignores node.js  files
-set wildignore+=**/logs/**
-set wildignore+=**/node_modules/**
-set wildignore+=**/plugins/**     
-set wildignore+=**/bootstrap**/**
