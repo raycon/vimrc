@@ -10,8 +10,8 @@
 "-------------------------------------------------------------------------------
 
 nmap <silent> ,ev :e  $MYVIMRC<CR>
-nmap <silent> ,sv :so $MYVIMRC<CR>
 nmap <silent> ,pl :PluginList<CR>
+autocmd! bufwritepost $MYVIMRC source $MYVIMRC
 
 "-------------------------------------------------------------------------------
 " VUNDLE
@@ -53,7 +53,7 @@ Plugin 'vim-scripts/matchit.zip'
 " JavaScript
 Plugin 'jelera/vim-javascript-syntax'
 " Plugin 'scrooloose/syntastic'      " Syntax checking
-Plugin 'marijnh/tern_for_vim'
+" Plugin 'marijnh/tern_for_vim'
 
 " AutoComplete
 Plugin 'vim-scripts/AutoComplPop'
@@ -68,8 +68,10 @@ Plugin 'terryma/vim-smooth-scroll'
 " Toggle Quickfix and Location list
 Plugin 'milkypostman/vim-togglelist'
 
-" Tagbar
-" Plugin 'majutsushi/tagbar'
+" Preserve buffers
+Plugin 'xolox/vim-session'
+Plugin 'xolox/vim-misc'
+let g:session_directory = $HOME.'/.vim'
 
 " VUNDLE END -------------------------------------------------------------------
 
@@ -82,7 +84,7 @@ filetype plugin indent on
 
 " Flattown 
 colorscheme flattown
-set t_Co=256
+au ColorScheme * hi Title guifg=#b8d977 guibg=NONE guisp=NONE gui=NONE ctermfg=150 ctermbg=NONE cterm=NONE
 
 " Airline
 let g:airline_powerline_fonts = 1                   " Use powerline font
@@ -98,6 +100,7 @@ au VimEnter * wincmd p                  " Move cursor to previous buffer
 let NERDTreeChDirMode       = 2         " Sync pwd with NERDTree root
 let NERDTreeShowBookmarks   = 1         " Always show bookmarks
 nnoremap <F7> :NERDTreeToggle<CR> 
+nnoremap <c-e> :NERDTreeToggle<CR> 
 
 " tComment
 map <leader>c <c-_><c-_>
@@ -113,6 +116,7 @@ noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 0, 4)<CR>
 
 " CtrlP
 let g:ctrlp_working_path_mode = 'rw'    " Use pwd as working directory
+let g:ctrlp_map = '<C-Space>'
 
 " DelimitMate
 let delimitMate_expand_cr = 1           " Add new line after {
@@ -131,6 +135,12 @@ syntax on
 
 " Set 7 line padding to cursor
 set so=7
+
+" Auto read when file is changed from outside
+set autoread
+
+" Highlight current line
+set cursorline
 
 " Space and Tab     " Use 4 spaces instead of tab
 set tabstop=4       " Column counts for tab
@@ -184,7 +194,7 @@ set iminsert=1
 set imsearch=-1
 
 " Show line numbers
-set number
+" set number
 
 "-------------------------------------------------------------------------------
 " KEY MAPPING
@@ -196,12 +206,26 @@ let mapleader = ","
 map j gj
 map k gk
 
-" Buffer navigation
-nnoremap <C-n> :bn<CR>
-" nnoremap <C-p> :bp<CR>
-
 " Buffers
 nmap <leader>d :BD<CR>
+nmap <leader>c <c-w>c
+
+" Files
+nmap <leader>w :w!<CR>
+
+" Replace word under the cursor
+nnoremap <leader>r :%s/\<<C-r><C-w>\>//gcl<Left><Left><Left><Left>
+
+" Buffer navigation
+nnoremap <c-n> :bn<CR>
+nnoremap <c-p> :bp<CR>
+
+" Tab navigation
+nnoremap t<insert>  :tabnew<CR>
+nnoremap t<delete>  :tabclose<CR>
+nnoremap tp         :tabprev<CR>
+nnoremap tn         :tabnext<CR>
+nnoremap te         :tabedit <c-r>=expand("%:p:h")<cr>/
 
 " Windows navigation
 nmap <C-h> <C-w>h
@@ -209,19 +233,26 @@ nmap <C-j> <C-w>j
 nmap <C-k> <C-w>k
 nmap <C-l> <C-w>l
 
-" Move a line of text using ALT+[jk] or Comamnd+[jk] on mac
-nmap <M-j> mz:m+<cr>`z==
-nmap <M-k> mz:m-2<cr>`z==
-imap <M-j> <Esc>:m+<CR>==gi
-imap <M-k> <Esc>:m-2<CR>==gi
-vmap <M-j> :m'>+<CR>gv=`<my`>mzgv`yo`z
-vmap <M-k> :m'<-2<CR>gv=`>my`<mzgv`yo`z
-nmap <D-j> mz:m+<cr>`z==
-nmap <D-k> mz:m-2<cr>`z==
-imap <D-j> <Esc>:m+<CR>==gi
-imap <D-k> <Esc>:m-2<CR>==gi
-vmap <D-j> :m'>+<CR>gv=`<my`>mzgv`yo`z
-vmap <D-k> :m'<-2<CR>gv=`>my`<mzgv`yo`z
+" Move a line of text using ALT+[hjkl] or Comamnd+[hjkl] on mac
+nmap <M-j> mz:m+<cr>`z
+nmap <M-k> mz:m-2<cr>`z
+vmap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
+vmap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
+nmap <M-h> <<
+nmap <M-l> >>
+vmap <M-h> <gv
+vmap <M-l> >gv
+
+if has("mac") || has("macunix")
+    nmap <D-h> <M-h>
+    nmap <D-j> <M-j>
+    nmap <D-k> <M-k>
+    nmap <D-l> <M-l>
+    vmap <D-h> <M-h>
+    vmap <D-j> <M-j>
+    vmap <D-k> <M-k>
+    vmap <D-l> <M-l>
+endif
 
 " Toggle search highlight
 nmap <silent> <leader>h :set hlsearch! hlsearch?<CR>
@@ -257,9 +288,11 @@ nmap g# g#zz
 
 " VimGrep ----------------------------------------------------------------------
 
-nmap <silent> <C-g> :call GrepInFiles()<CR> 
+" nmap <leader>g :noautocmd vimgrep //j ./**/*<C-Left><C-Left><Right>
+nmap <leader>g :call GrepInFiles()<CR>
 
 " Quickfix ---------------------------------------------------------------------
+
 nmap <script> <silent> <F9>  :call ToggleLocationList()<CR>
 nmap <script> <silent> <F10> :call ToggleQuickfixList()<CR>
 nmap <f11>   :cprev<cr>
@@ -282,8 +315,8 @@ elseif has("win32")
     set guifontwide=NanumGothicCoding:h10cDEFAULT
     set guioptions-=m   " remove menu bar
     set guioptions-=T   " remove toolbar
-    set guioptions-=r   " remove right-hand scroll bar
-    set guioptions-=L   " remove right-hand scroll bar
+    set guioptions-=r   " remove right scroll bar
+    set guioptions-=L   " remove left scroll bar
     lang mes en_US      " language
     cd $HOME/Notes      " set pwd
 endif
@@ -292,12 +325,15 @@ endif
 " FUNCTIONS
 "-------------------------------------------------------------------------------
 
+" Remove quickfix from buffer list
+au BufEnter * if &buftype==#'quickfix' | set nobuflisted | endif
+
 function! GrepInFiles()
     call inputsave()
-    let replacement = input(getcwd().' >>> ')
+    let search = input('Grep in '.getcwd().' > ')
     call inputrestore()
-    if !empty(replacement)
-        execute ':silent vimgrep "'.replacement.'"j ./**/*'
+    if !empty(search)
+        execute ':noautocmd vimgrep /'.search.'/j ./**/*'
         copen
     endif
 endfunction
