@@ -71,7 +71,7 @@ Plugin 'milkypostman/vim-togglelist'
 " Preserve buffers
 Plugin 'xolox/vim-session'
 Plugin 'xolox/vim-misc'
-let g:session_directory = $HOME.'/.vim'
+let g:session_directory = $HOME.'/.vimsession'
 
 " VUNDLE END -------------------------------------------------------------------
 
@@ -100,7 +100,8 @@ au VimEnter * wincmd p                  " Move cursor to previous buffer
 let NERDTreeChDirMode       = 2         " Sync pwd with NERDTree root
 let NERDTreeShowBookmarks   = 1         " Always show bookmarks
 nnoremap <F7> :NERDTreeToggle<CR> 
-nnoremap <c-e> :NERDTreeToggle<CR> 
+nnoremap <leader>e :NERDTreeToggle<CR> 
+nnoremap <leader>f :NERDTreeFind<CR>
 
 " tComment
 map <leader>c <c-_><c-_>
@@ -109,10 +110,12 @@ map <leader>c <c-_><c-_>
 let g:rainbow_active = 1                " Enable rainbow
 
 " Smooth scroll
+if has("gui_running")
 noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 0, 2)<CR>
 noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 0, 2)<CR>
 noremap <silent> <c-b> :call smooth_scroll#up(&scroll*2, 0, 4)<CR>
 noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 0, 4)<CR>
+endif
 
 " CtrlP
 let g:ctrlp_working_path_mode = 'rw'    " Use pwd as working directory
@@ -313,12 +316,15 @@ elseif has("win32")
     au VimEnter * set lines=50 columns=150
     set guifont=Powerline_Consolas:h10:cANSI
     set guifontwide=NanumGothicCoding:h10cDEFAULT
+    lang mes en_US      " language
+    cd $HOME/Notes      " set pwd
+endif
+
+if has("gui_running")
     set guioptions-=m   " remove menu bar
     set guioptions-=T   " remove toolbar
     set guioptions-=r   " remove right scroll bar
     set guioptions-=L   " remove left scroll bar
-    lang mes en_US      " language
-    cd $HOME/Notes      " set pwd
 endif
 
 "-------------------------------------------------------------------------------
