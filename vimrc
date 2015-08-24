@@ -100,7 +100,7 @@ au VimEnter * wincmd p                  " Move cursor to previous buffer
 let NERDTreeChDirMode       = 2         " Sync pwd with NERDTree root
 let NERDTreeShowBookmarks   = 1         " Always show bookmarks
 nnoremap <F7> :NERDTreeToggle<CR> 
-nnoremap <leader>e :NERDTreeToggle<CR> 
+nnoremap <C-e> :NERDTreeToggle<CR> 
 nnoremap <leader>f :NERDTreeFind<CR>
 
 " tComment
