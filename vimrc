@@ -119,7 +119,6 @@ endif
 
 " CtrlP
 let g:ctrlp_working_path_mode = 'rw'    " Use pwd as working directory
-let g:ctrlp_map = '<C-Space>'
 
 " DelimitMate
 let delimitMate_expand_cr = 1           " Add new line after {
@@ -221,7 +220,6 @@ nnoremap <leader>r :%s/\<<C-r><C-w>\>//gcl<Left><Left><Left><Left>
 
 " Buffer navigation
 nnoremap <c-n> :bn<CR>
-nnoremap <c-p> :bp<CR>
 
 " Tab navigation
 nnoremap t<insert>  :tabnew<CR>
