@@ -69,9 +69,9 @@ Plugin 'terryma/vim-smooth-scroll'
 Plugin 'milkypostman/vim-togglelist'
 
 " Preserve buffers
-Plugin 'xolox/vim-session'
-Plugin 'xolox/vim-misc'
-let g:session_directory = $HOME.'/.vimsession'
+" Plugin 'xolox/vim-session'
+" Plugin 'xolox/vim-misc'
+" let g:session_directory = $HOME.'/.vimsession'
 
 " VUNDLE END -------------------------------------------------------------------
 
