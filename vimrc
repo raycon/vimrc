@@ -47,7 +47,7 @@ Plugin 'plasticboy/vim-markdown'
 " HTML
 Plugin 'tpope/vim-surround'
 " Plugin 'othree/html5.vim'
-" Plugin 'skammer/vim-css-color' 
+Plugin 'ap/vim-css-color' 
 Plugin 'vim-scripts/matchit.zip'
 
 " JavaScript
@@ -73,6 +73,9 @@ Plugin 'milkypostman/vim-togglelist'
 " Plugin 'xolox/vim-misc'
 " let g:session_directory = $HOME.'/.vimsession'
 
+" Git
+Plugin 'tpope/vim-fugitive'
+
 " VUNDLE END -------------------------------------------------------------------
 
 call vundle#end()
@@ -87,7 +90,9 @@ colorscheme flattown
 au ColorScheme * hi Title guifg=#b8d977 guibg=NONE guisp=NONE gui=NONE ctermfg=150 ctermbg=NONE cterm=NONE
 
 " Airline
-let g:airline_powerline_fonts = 1                   " Use powerline font
+if has("gui_running")
+    let g:airline_powerline_fonts = 1                   " Use powerline font
+endif
 let g:airline#extensions#tabline#enabled = 1        " Enable tabline
 let g:airline#extensions#tabline#fnamemod = ':t'    " Just show the filename
 
@@ -95,30 +100,25 @@ let g:airline#extensions#tabline#fnamemod = ':t'    " Just show the filename
 let g:EasyMotion_leader_key = ';' 
 
 " NERDTree
-au VimEnter * NERDTree                  " Start vim with NERDTree
-au VimEnter * wincmd p                  " Move cursor to previous buffer
 let NERDTreeChDirMode       = 2         " Sync pwd with NERDTree root
 let NERDTreeShowBookmarks   = 1         " Always show bookmarks
-nnoremap <F7> :NERDTreeToggle<CR> 
 nnoremap <C-e> :NERDTreeToggle<CR> 
-nnoremap <leader>f :NERDTreeFind<CR>
-
-" tComment
-map <leader>c <c-_><c-_>
+nnoremap <leader>e :NERDTreeFind<CR>
 
 " Rainbow
 let g:rainbow_active = 1                " Enable rainbow
 
 " Smooth scroll
 if has("gui_running")
-noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 0, 2)<CR>
-noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 0, 2)<CR>
-noremap <silent> <c-b> :call smooth_scroll#up(&scroll*2, 0, 4)<CR>
-noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 0, 4)<CR>
+    noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 0, 2)<CR>
+    noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 0, 2)<CR>
+    noremap <silent> <c-b> :call smooth_scroll#up(&scroll*2, 0, 4)<CR>
+    noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 0, 4)<CR>
 endif
 
 " CtrlP
 let g:ctrlp_working_path_mode = 'rw'    " Use pwd as working directory
+nnoremap <leader>f :CtrlP<CR>
 
 " DelimitMate
 let delimitMate_expand_cr = 1           " Add new line after {
@@ -196,7 +196,10 @@ set iminsert=1
 set imsearch=-1
 
 " Show line numbers
-" set number
+set number
+
+" tmux Background Color Erase
+set t_ut=    
 
 "-------------------------------------------------------------------------------
 " KEY MAPPING
@@ -220,6 +223,7 @@ nnoremap <leader>r :%s/\<<C-r><C-w>\>//gcl<Left><Left><Left><Left>
 
 " Buffer navigation
 nnoremap <c-n> :bn<CR>
+nnoremap <c-p> :bp<CR>
 
 " Tab navigation
 nnoremap t<insert>  :tabnew<CR>
@@ -259,22 +263,24 @@ endif
 nmap <silent> <leader>h :set hlsearch! hlsearch?<CR>
 
 " Toggle wrap mode
-nmap <leader> <leader>w :setlocal wrap!<CR>:setlocal wrap?<CR>
+" nmap <leader> <leader>w :setlocal wrap!<CR>:setlocal wrap?<CR>
 
 " Toggle number
-nmap <leader> <leader>n :setlocal number!<CR>
+nmap <silent> <leader>n :setlocal number!<CR>
 
 " Auto complete
 inoremap <C-Space> <C-x><C-o>
 
 " Auto complete - XML Tags
-inoremap <lt>/ </<C-X><C-O>
+" inoremap <lt>/ </<C-X><C-O>
 
 " Folding
-nnoremap <Space> za
+" http://vim.wikia.com/wiki/Folding
+nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
+vnoremap <Space> zf
 
 " Indent
-nnoremap <c-i> mqHmwgg=G`wzt`q
+nnoremap <leader>i mqHmwgg=G`wzt`q
 
 " Yank all
 nmap ya :%y+<CR>
@@ -338,6 +344,7 @@ function! GrepInFiles()
     call inputrestore()
     if !empty(search)
         execute ':noautocmd vimgrep /'.search.'/j ./**/*'
+        execute ':let @/="'.search.'"'
         copen
     endif
 endfunction
