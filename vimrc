@@ -82,53 +82,6 @@ call vundle#end()
 filetype plugin indent on
 
 "-------------------------------------------------------------------------------
-" PLUGIN SETTINGS
-"-------------------------------------------------------------------------------
-
-" Flattown 
-colorscheme flattown
-au ColorScheme * hi Title guifg=#b8d977 guibg=NONE guisp=NONE gui=NONE ctermfg=150 ctermbg=NONE cterm=NONE
-
-" Airline
-if has("gui_running")
-    let g:airline_powerline_fonts = 1                   " Use powerline font
-endif
-let g:airline#extensions#tabline#enabled = 1        " Enable tabline
-let g:airline#extensions#tabline#fnamemod = ':t'    " Just show the filename
-
-" EasyMotion
-let g:EasyMotion_leader_key = ';' 
-
-" NERDTree
-let NERDTreeChDirMode       = 2         " Sync pwd with NERDTree root
-let NERDTreeShowBookmarks   = 1         " Always show bookmarks
-nnoremap <C-e> :NERDTreeToggle<CR> 
-nnoremap <leader>e :NERDTreeFind<CR>
-
-" Rainbow
-let g:rainbow_active = 1                " Enable rainbow
-
-" Smooth scroll
-if has("gui_running")
-    noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 0, 2)<CR>
-    noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 0, 2)<CR>
-    noremap <silent> <c-b> :call smooth_scroll#up(&scroll*2, 0, 4)<CR>
-    noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 0, 4)<CR>
-endif
-
-" CtrlP
-let g:ctrlp_working_path_mode = 'rw'    " Use pwd as working directory
-nnoremap <leader>f :CtrlP<CR>
-
-" DelimitMate
-let delimitMate_expand_cr = 1           " Add new line after {
-
-" Tabularize
-" Markdown table align
-inoremap <silent> <Bar>   <Bar><Esc>:call <SID>align()<CR>a
-au BufNewFile,BufRead *.markdown,*.mdown,*.mkd,*.mkdn,*.md setf markdown
-
-"-------------------------------------------------------------------------------
 " GLOBAL SETTINGS
 "-------------------------------------------------------------------------------
 
@@ -359,3 +312,51 @@ function! s:align()
         call search(repeat('[^|]*|',column).'\s\{-\}'.repeat('.',position),'ce',line('.'))
     endif
 endfunction
+
+"-------------------------------------------------------------------------------
+" PLUGIN SETTINGS
+"-------------------------------------------------------------------------------
+
+" Flattown 
+colorscheme flattown
+au ColorScheme * hi Title guifg=#b8d977 guibg=NONE guisp=NONE gui=NONE ctermfg=150 ctermbg=NONE cterm=NONE
+
+" Airline
+if has("gui_running")
+    let g:airline_powerline_fonts = 1                   " Use powerline font
+endif
+let g:airline#extensions#tabline#enabled = 1        " Enable tabline
+let g:airline#extensions#tabline#fnamemod = ':t'    " Just show the filename
+
+" EasyMotion
+let g:EasyMotion_leader_key = ';' 
+
+" NERDTree
+let NERDTreeChDirMode       = 2         " Sync pwd with NERDTree root
+let NERDTreeShowBookmarks   = 1         " Always show bookmarks
+nnoremap <C-e> :NERDTreeToggle<CR> 
+nnoremap <leader>e :NERDTreeFind<CR>
+
+" Rainbow
+let g:rainbow_active = 1                " Enable rainbow
+
+" Smooth scroll
+if has("gui_running")
+    noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 0, 2)<CR>
+    noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 0, 2)<CR>
+    noremap <silent> <c-b> :call smooth_scroll#up(&scroll*2, 0, 4)<CR>
+    noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 0, 4)<CR>
+endif
+
+" CtrlP
+let g:ctrlp_working_path_mode = 'rw'    " Use pwd as working directory
+nnoremap <leader>f :CtrlP<CR>
+
+" DelimitMate
+let delimitMate_expand_cr = 1           " Add new line after {
+
+" Tabularize
+" Markdown table align
+inoremap <silent> <Bar>   <Bar><Esc>:call <SID>align()<CR>a
+au BufNewFile,BufRead *.markdown,*.mdown,*.mkd,*.mkdn,*.md setf markdown
+
