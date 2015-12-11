@@ -95,7 +95,7 @@ set so=7
 set autoread
 
 " Highlight current line
-set cursorline
+" set cursorline
 
 " Space and Tab     " Use 4 spaces instead of tab
 set tabstop=4       " Column counts for tab
