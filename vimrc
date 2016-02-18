@@ -76,6 +76,11 @@ Plugin 'milkypostman/vim-togglelist'
 " Git
 Plugin 'tpope/vim-fugitive'
 
+" Highlight
+" Plugin 'highlight.vim'
+
+Plugin 'taglist.vim'
+
 " VUNDLE END -------------------------------------------------------------------
 
 call vundle#end()
@@ -237,6 +242,7 @@ nnoremap <leader>i mqHmwgg=G`wzt`q
 
 " Yank all
 nmap ya :%y+<CR>
+nnoremap S "_diwP
 
 " Center search results
 nmap n nzz
@@ -359,4 +365,8 @@ let delimitMate_expand_cr = 1           " Add new line after {
 " Markdown table align
 inoremap <silent> <Bar>   <Bar><Esc>:call <SID>align()<CR>a
 au BufNewFile,BufRead *.markdown,*.mdown,*.mkd,*.mkdn,*.md setf markdown
+
+
+" Taglist
+let Tlist_Use_Right_Window = 1
 
