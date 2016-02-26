@@ -360,3 +360,6 @@ let delimitMate_expand_cr = 1           " Add new line after {
 inoremap <silent> <Bar>   <Bar><Esc>:call <SID>align()<CR>a
 au BufNewFile,BufRead *.markdown,*.mdown,*.mkd,*.mkdn,*.md setf markdown
 
+" IndentLine
+let g:indentLine_char = '|'
+
