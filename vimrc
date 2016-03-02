@@ -68,13 +68,18 @@ Plugin 'terryma/vim-smooth-scroll'
 " Toggle Quickfix and Location list
 Plugin 'milkypostman/vim-togglelist'
 
-" Preserve buffers
-" Plugin 'xolox/vim-session'
-" Plugin 'xolox/vim-misc'
-" let g:session_directory = $HOME.'/.vimsession'
-
 " Git
 Plugin 'tpope/vim-fugitive'
+
+" Syntax reload
+Plugin 'xolox/vim-misc'
+Plugin 'xolox/vim-reload'
+
+" Color table for Syntax highlight
+Plugin 'xterm-color-table.vim'
+
+" Tail
+Plugin 'Tail-Bundle'
 
 " VUNDLE END -------------------------------------------------------------------
 
@@ -363,3 +368,5 @@ au BufNewFile,BufRead *.markdown,*.mdown,*.mkd,*.mkdn,*.md setf markdown
 " IndentLine
 let g:indentLine_char = '|'
 
+" xTerm Color Table
+nnoremap <leader>t  :XtermColorTable<cr>
