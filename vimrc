@@ -81,6 +81,9 @@ Plugin 'xterm-color-table.vim'
 " Tail
 Plugin 'Tail-Bundle'
 
+" Log syntax highlight
+Plugin 'raycon/log.vim'
+
 " VUNDLE END -------------------------------------------------------------------
 
 call vundle#end()
@@ -343,7 +346,7 @@ nnoremap <C-e> :NERDTreeToggle<CR>
 nnoremap <leader>e :NERDTreeFind<CR>
 
 " Rainbow
-let g:rainbow_active = 1                " Enable rainbow
+" let g:rainbow_active = 1                " Enable rainbow
 
 " Smooth scroll
 if has("gui_running")
