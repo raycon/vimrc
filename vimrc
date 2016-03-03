@@ -282,7 +282,6 @@ elseif has("win32")
     set guifont=Powerline_Consolas:h10:cANSI
     set guifontwide=NanumGothicCoding:h10cDEFAULT
     lang mes en_US      " language
-    cd $HOME/Notes      " set pwd
 endif
 
 if has("gui_running")
