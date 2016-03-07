@@ -257,7 +257,8 @@ nmap g# g#zz
 " VimGrep ----------------------------------------------------------------------
 
 " nmap <leader>g :noautocmd vimgrep //j ./**/*<C-Left><C-Left><Right>
-nmap <leader>g :call GrepInFiles()<CR>
+nmap <leader>gf :call GrepInFiles()<CR>
+nmap <leader>gb :call GrepInBuffers()<CR>
 
 " Quickfix ---------------------------------------------------------------------
 
@@ -304,6 +305,28 @@ function! GrepInFiles()
     call inputrestore()
     if !empty(search)
         execute ':noautocmd vimgrep /'.search.'/j ./**/*'
+        execute ':let @/="'.search.'"'
+        copen
+    endif
+endfunction
+
+function! BufferList()
+    let all = range(0, bufnr('$'))
+    let res = []
+    for b in all
+        if buflisted(b)
+            call add(res, bufname(b))
+        endif
+    endfor
+    return res
+endfunction
+
+function! GrepInBuffers()
+    call inputsave()
+    let search = input('Grep in buffers > ')
+    call inputrestore()
+    if !empty(search)
+        execute ':noautocmd vimgrep /'.search.'/ '.join(BufferList())
         execute ':let @/="'.search.'"'
         copen
     endif
