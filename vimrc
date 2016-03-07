@@ -177,14 +177,14 @@ nmap <leader>d :BD<CR>
 nmap <leader>c <c-w>c
 
 " Files
-nmap <leader>w :w!<CR>
+" nmap <leader>w :w!<CR>
 
 " Replace word under the cursor
 nnoremap <leader>r :%s/\<<C-r><C-w>\>//gcl<Left><Left><Left><Left>
 
 " Buffer navigation
 nnoremap <c-n> :bn<CR>
-nnoremap <c-p> :bp<CR>
+" nnoremap <c-p> :bp<CR>
 
 " Tab navigation
 nnoremap t<insert>  :tabnew<CR>
@@ -221,10 +221,10 @@ if has("mac") || has("macunix")
 endif
 
 " Toggle search highlight
-nmap <silent> <leader>h :set hlsearch! hlsearch?<CR>
+nmap <silent> <leader>h :setlocal hlsearch! hlsearch?<CR>
 
 " Toggle wrap mode
-" nmap <leader> <leader>w :setlocal wrap!<CR>:setlocal wrap?<CR>
+nmap <silent> <leader>w :setlocal wrap!<CR>:setlocal wrap?<CR>
 
 " Toggle number
 nmap <silent> <leader>n :setlocal number!<CR>
@@ -357,7 +357,7 @@ endif
 
 " CtrlP
 let g:ctrlp_working_path_mode = 'rw'    " Use pwd as working directory
-nnoremap <leader>f :CtrlP<CR>
+let g:ctrlp_cmd = 'CtrlPMixed'
 
 " DelimitMate
 let delimitMate_expand_cr = 1           " Add new line after {
