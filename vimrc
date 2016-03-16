@@ -68,18 +68,21 @@ Plugin 'terryma/vim-smooth-scroll'
 " Toggle Quickfix and Location list
 Plugin 'milkypostman/vim-togglelist'
 
-" Preserve buffers
-" Plugin 'xolox/vim-session'
-" Plugin 'xolox/vim-misc'
-" let g:session_directory = $HOME.'/.vimsession'
-
 " Git
 Plugin 'tpope/vim-fugitive'
 
-" Highlight
-" Plugin 'highlight.vim'
+" Syntax reload
+Plugin 'xolox/vim-misc'
+Plugin 'xolox/vim-reload'
 
-Plugin 'taglist.vim'
+" Color table for Syntax highlight
+Plugin 'xterm-color-table.vim'
+
+" Tail
+Plugin 'Tail-Bundle'
+
+" Log syntax highlight
+Plugin 'raycon/log.vim'
 
 " VUNDLE END -------------------------------------------------------------------
 
@@ -174,14 +177,14 @@ nmap <leader>d :BD<CR>
 nmap <leader>c <c-w>c
 
 " Files
-nmap <leader>w :w!<CR>
+" nmap <leader>w :w!<CR>
 
 " Replace word under the cursor
 nnoremap <leader>r :%s/\<<C-r><C-w>\>//gcl<Left><Left><Left><Left>
 
 " Buffer navigation
 nnoremap <c-n> :bn<CR>
-nnoremap <c-p> :bp<CR>
+" nnoremap <c-p> :bp<CR>
 
 " Tab navigation
 nnoremap t<insert>  :tabnew<CR>
@@ -218,10 +221,10 @@ if has("mac") || has("macunix")
 endif
 
 " Toggle search highlight
-nmap <silent> <leader>h :set hlsearch! hlsearch?<CR>
+nmap <silent> <leader>h :setlocal hlsearch! hlsearch?<CR>
 
 " Toggle wrap mode
-" nmap <leader> <leader>w :setlocal wrap!<CR>:setlocal wrap?<CR>
+nmap <silent> <leader>w :setlocal wrap!<CR>:setlocal wrap?<CR>
 
 " Toggle number
 nmap <silent> <leader>n :setlocal number!<CR>
@@ -255,7 +258,8 @@ nmap g# g#zz
 " VimGrep ----------------------------------------------------------------------
 
 " nmap <leader>g :noautocmd vimgrep //j ./**/*<C-Left><C-Left><Right>
-nmap <leader>g :call GrepInFiles()<CR>
+nmap <leader>gf :call GrepInFiles()<CR>
+nmap <leader>gb :call GrepInBuffers()<CR>
 
 " Quickfix ---------------------------------------------------------------------
 
@@ -280,7 +284,6 @@ elseif has("win32")
     set guifont=Powerline_Consolas:h10:cANSI
     set guifontwide=NanumGothicCoding:h10cDEFAULT
     lang mes en_US      " language
-    cd $HOME/Notes      " set pwd
 endif
 
 if has("gui_running")
@@ -303,6 +306,28 @@ function! GrepInFiles()
     call inputrestore()
     if !empty(search)
         execute ':noautocmd vimgrep /'.search.'/j ./**/*'
+        execute ':let @/="'.search.'"'
+        copen
+    endif
+endfunction
+
+function! BufferList()
+    let all = range(0, bufnr('$'))
+    let res = []
+    for b in all
+        if buflisted(b)
+            call add(res, bufname(b))
+        endif
+    endfor
+    return res
+endfunction
+
+function! GrepInBuffers()
+    call inputsave()
+    let search = input('Grep in buffers > ')
+    call inputrestore()
+    if !empty(search)
+        execute ':noautocmd vimgrep /'.search.'/ '.join(BufferList())
         execute ':let @/="'.search.'"'
         copen
     endif
@@ -344,7 +369,7 @@ nnoremap <C-e> :NERDTreeToggle<CR>
 nnoremap <leader>e :NERDTreeFind<CR>
 
 " Rainbow
-let g:rainbow_active = 1                " Enable rainbow
+" let g:rainbow_active = 1                " Enable rainbow
 
 " Smooth scroll
 if has("gui_running")
@@ -356,7 +381,7 @@ endif
 
 " CtrlP
 let g:ctrlp_working_path_mode = 'rw'    " Use pwd as working directory
-nnoremap <leader>f :CtrlP<CR>
+let g:ctrlp_cmd = 'CtrlPMixed'
 
 " DelimitMate
 let delimitMate_expand_cr = 1           " Add new line after {
@@ -366,7 +391,8 @@ let delimitMate_expand_cr = 1           " Add new line after {
 inoremap <silent> <Bar>   <Bar><Esc>:call <SID>align()<CR>a
 au BufNewFile,BufRead *.markdown,*.mdown,*.mkd,*.mkdn,*.md setf markdown
 
+" IndentLine
+let g:indentLine_char = '|'
 
-" Taglist
-let Tlist_Use_Right_Window = 1
-
+" xTerm Color Table
+nnoremap <leader>t  :XtermColorTable<cr>
