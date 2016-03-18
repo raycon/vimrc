@@ -177,7 +177,7 @@ nmap <leader>d :BD<CR>
 nmap <leader>c <c-w>c
 
 " Files
-" nmap <leader>w :w!<CR>
+nmap <leader>w :w!<CR>
 
 " Replace word under the cursor
 nnoremap <leader>r :%s/\<<C-r><C-w>\>//gcl<Left><Left><Left><Left>
@@ -224,7 +224,7 @@ endif
 nmap <silent> <leader>h :setlocal hlsearch! hlsearch?<CR>
 
 " Toggle wrap mode
-nmap <silent> <leader>w :setlocal wrap!<CR>:setlocal wrap?<CR>
+" nmap <silent> <leader>w :setlocal wrap!<CR>:setlocal wrap?<CR>
 
 " Toggle number
 nmap <silent> <leader>n :setlocal number!<CR>
