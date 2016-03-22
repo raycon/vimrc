@@ -55,6 +55,9 @@ Plugin 'jelera/vim-javascript-syntax'
 " Plugin 'scrooloose/syntastic'      " Syntax checking
 " Plugin 'marijnh/tern_for_vim'
 
+" PHP
+Plugin 'php.vim'
+
 " AutoComplete
 Plugin 'vim-scripts/AutoComplPop'
 Plugin 'ervandew/supertab'       " insert-mode completion with Tab.
@@ -161,6 +164,9 @@ set number
 
 " tmux Background Color Erase
 set t_ut=    
+
+" foo-bar as word
+set iskeyword+=-
 
 "-------------------------------------------------------------------------------
 " KEY MAPPING
