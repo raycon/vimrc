@@ -282,7 +282,9 @@ nmap <c-f12> :cnewer<cr>
 " GUI SETTINGS
 "-------------------------------------------------------------------------------
 
-if has("mac")
+if has ("gui_gtk2")
+    set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 10
+elseif has("mac")
     set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h12
 elseif has("win32")
     source $VIMRUNTIME/mswin.vim
@@ -359,9 +361,7 @@ colorscheme flattown
 au ColorScheme * hi Title guifg=#b8d977 guibg=NONE guisp=NONE gui=NONE ctermfg=150 ctermbg=NONE cterm=NONE
 
 " Airline
-if has("gui_running")
-    let g:airline_powerline_fonts = 1                   " Use powerline font
-endif
+let g:airline_powerline_fonts = 1                   " Use powerline font
 let g:airline#extensions#tabline#enabled = 1        " Enable tabline
 let g:airline#extensions#tabline#fnamemod = ':t'    " Just show the filename
 
