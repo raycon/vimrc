@@ -291,7 +291,9 @@ elseif has("win32")
     au VimEnter * set lines=50 columns=150
     set guifont=Powerline_Consolas:h10:cANSI
     set guifontwide=NanumGothicCoding:h10cDEFAULT
-    lang mes en_US      " language
+    lang mes ko_KR.UTF-8 " language
+    source $VIMRUNTIME/delmenu.vim
+    source $VIMRUNTIME/menu.vim
 endif
 
 if has("gui_running")
