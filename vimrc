@@ -10,7 +10,6 @@
 "-------------------------------------------------------------------------------
 
 nmap <silent> ,ev :e  $MYVIMRC<CR>
-nmap <silent> ,pl :PluginList<CR>
 autocmd! bufwritepost $MYVIMRC source $MYVIMRC
 
 "-------------------------------------------------------------------------------
@@ -37,6 +36,7 @@ Plugin 'easymotion/vim-easymotion' " Source navigation
 Plugin 'Raimondi/delimitMate'      " Auto-completion for quotes, parens, brackets.
 Plugin 'tomtom/tcomment_vim'       " Toggle comments
 Plugin 'qpkorr/vim-bufkill'        " Close buffer without closing window
+Plugin 'kien/ctrlp.vim'            " File buffer explorer
 
 " Sandbox ----------------------------------------------------------------------
 
@@ -44,48 +44,11 @@ Plugin 'qpkorr/vim-bufkill'        " Close buffer without closing window
 Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
 
-" HTML
-Plugin 'tpope/vim-surround'
-" Plugin 'othree/html5.vim'
-Plugin 'ap/vim-css-color' 
-Plugin 'vim-scripts/matchit.zip'
-
 " JavaScript
 Plugin 'jelera/vim-javascript-syntax'
-" Plugin 'scrooloose/syntastic'      " Syntax checking
-" Plugin 'marijnh/tern_for_vim'
-
-" PHP
-Plugin 'php.vim'
-
-" AutoComplete
-Plugin 'vim-scripts/AutoComplPop'
-Plugin 'ervandew/supertab'       " insert-mode completion with Tab.
-
-" File buffer explorer
-Plugin 'kien/ctrlp.vim'
-
-" Scroll
-Plugin 'terryma/vim-smooth-scroll'
 
 " Toggle Quickfix and Location list
 Plugin 'milkypostman/vim-togglelist'
-
-" Git
-Plugin 'tpope/vim-fugitive'
-
-" Syntax reload
-Plugin 'xolox/vim-misc'
-Plugin 'xolox/vim-reload'
-
-" Color table for Syntax highlight
-Plugin 'xterm-color-table.vim'
-
-" Tail
-Plugin 'Tail-Bundle'
-
-" Log syntax highlight
-Plugin 'raycon/log.vim'
 
 " VUNDLE END -------------------------------------------------------------------
 
@@ -115,6 +78,7 @@ set softtabstop=4   " Space count for tab key in INSERT mode
 set smarttab        " When off, <Tab> will not inserts spaces in front of a line
 set expandtab       " Use spaces instead of tabs
 set autoindent      " Copy indent from current line when starting a new line
+set breakindent     " Every wrapped line will continue visually indented
 
 " Search
 set wrapscan        " Search wrap lines
@@ -152,7 +116,7 @@ set fillchars+=vert:\
 
 " Omni completion
 " http://vim.wikia.com/wiki/Omni_completion
-set omnifunc=syntaxcomplete#Complete
+" set omnifunc=syntaxcomplete#Complete
 
 " Change keyboard layout to english in normal mode
 set noimdisable
@@ -376,17 +340,6 @@ let NERDTreeShowBookmarks   = 1         " Always show bookmarks
 nnoremap <C-e> :NERDTreeToggle<CR> 
 nnoremap <leader>e :NERDTreeFind<CR>
 
-" Rainbow
-" let g:rainbow_active = 1                " Enable rainbow
-
-" Smooth scroll
-if has("gui_running")
-    noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 0, 2)<CR>
-    noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 0, 2)<CR>
-    noremap <silent> <c-b> :call smooth_scroll#up(&scroll*2, 0, 4)<CR>
-    noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 0, 4)<CR>
-endif
-
 " CtrlP
 let g:ctrlp_working_path_mode = 'rw'    " Use pwd as working directory
 let g:ctrlp_cmd = 'CtrlPMixed'
@@ -401,6 +354,3 @@ au BufNewFile,BufRead *.markdown,*.mdown,*.mkd,*.mkdn,*.md setf markdown
 
 " IndentLine
 let g:indentLine_char = '|'
-
-" xTerm Color Table
-nnoremap <leader>t  :XtermColorTable<cr>
