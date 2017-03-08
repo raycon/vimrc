@@ -13,47 +13,42 @@ nmap <silent> ,ev :e  $MYVIMRC<CR>
 autocmd! bufwritepost $MYVIMRC source $MYVIMRC
 
 "-------------------------------------------------------------------------------
-" VUNDLE
+" vim-plug
 "-------------------------------------------------------------------------------
 
 " Do not use https request to download bundles
 let $GIT_SSL_NO_VERIFY = 'true'
 
-set nocompatible
-filetype off
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-Plugin 'gmarik/Vundle.vim'
+" Specify a directory for plugins
+call plug#begin('~/.vim/plugged')
 
 " Essential --------------------------------------------------------------------
 
-Plugin 'blerins/flattown'          " Color scheme
-Plugin 'Yggdroot/indentLine'       " Indent guide line
-Plugin 'luochen1990/rainbow'       " Colorize parentheses
-Plugin 'scrooloose/nerdtree'       " File explorer
-Plugin 'bling/vim-airline'         " Beautiful status line
-Plugin 'easymotion/vim-easymotion' " Source navigation
-Plugin 'Raimondi/delimitMate'      " Auto-completion for quotes, parens, brackets.
-Plugin 'tomtom/tcomment_vim'       " Toggle comments
-Plugin 'qpkorr/vim-bufkill'        " Close buffer without closing window
-Plugin 'kien/ctrlp.vim'            " File buffer explorer
+Plug 'blerins/flattown'          " Color scheme
+Plug 'Yggdroot/indentLine'       " Indent guide line
+Plug 'luochen1990/rainbow'       " Colorize parentheses
+Plug 'scrooloose/nerdtree'       " File explorer
+Plug 'bling/vim-airline'         " Beautiful status line
+Plug 'easymotion/vim-easymotion' " Source navigation
+Plug 'Raimondi/delimitMate'      " Auto-completion for quotes, parens, brackets.
+Plug 'tomtom/tcomment_vim'       " Toggle comments
+Plug 'qpkorr/vim-bufkill'        " Close buffer without closing window
+Plug 'kien/ctrlp.vim'            " File buffer explorer
 
 " Sandbox ----------------------------------------------------------------------
 
 " Markdown support
-Plugin 'godlygeek/tabular'
-Plugin 'plasticboy/vim-markdown'
+Plug 'godlygeek/tabular'
+Plug 'plasticboy/vim-markdown'
 
 " JavaScript
-Plugin 'jelera/vim-javascript-syntax'
+Plug 'jelera/vim-javascript-syntax'
 
 " Toggle Quickfix and Location list
-Plugin 'milkypostman/vim-togglelist'
+Plug 'milkypostman/vim-togglelist'
 
-" VUNDLE END -------------------------------------------------------------------
-
-call vundle#end()
-filetype plugin indent on
+" Initialize plugin system
+call plug#end()
 
 "-------------------------------------------------------------------------------
 " GLOBAL SETTINGS
