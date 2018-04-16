@@ -142,7 +142,7 @@ nmap <leader>d :BD<CR>
 nmap <leader>c <c-w>c
 
 " Files
-nmap <leader>w :w!<CR>
+" nmap <leader>w :w!<CR>
 
 " Replace word under the cursor
 nnoremap <leader>r :%s/\<<C-r><C-w>\>//gcl<Left><Left><Left><Left>
@@ -189,7 +189,7 @@ endif
 nmap <silent> <leader>h :setlocal hlsearch! hlsearch?<CR>
 
 " Toggle wrap mode
-" nmap <silent> <leader>w :setlocal wrap!<CR>:setlocal wrap?<CR>
+nmap <silent> <leader>w :setlocal wrap!<CR>:setlocal wrap?<CR>
 
 " Toggle number
 nmap <silent> <leader>n :setlocal number!<CR>
@@ -242,14 +242,12 @@ nmap <c-f12> :cnewer<cr>
 "-------------------------------------------------------------------------------
 
 if has ("gui_gtk2")
-    set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 10
+    set guifont=D2Coding\ 10
 elseif has("mac")
-    set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h12
+    set guifont=D2Coding:h12
 elseif has("win32")
-    source $VIMRUNTIME/mswin.vim
-    au VimEnter * set lines=50 columns=150
-    set guifont=Powerline_Consolas:h10:cANSI
-    set guifontwide=NanumGothicCoding:h10cDEFAULT
+    au VimEnter * set lines=60 columns=180
+    set guifont=D2Coding:h11
     lang mes ko_KR.UTF-8 " language
     source $VIMRUNTIME/delmenu.vim
     source $VIMRUNTIME/menu.vim
