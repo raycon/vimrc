@@ -47,6 +47,8 @@ Plug 'jelera/vim-javascript-syntax'
 " Toggle Quickfix and Location list
 Plug 'milkypostman/vim-togglelist'
 
+Plug 'chrisbra/Colorizer'
+
 " Initialize plugin system
 call plug#end()
 
@@ -242,12 +244,12 @@ nmap <c-f12> :cnewer<cr>
 "-------------------------------------------------------------------------------
 
 if has ("gui_gtk2")
-    set guifont=D2Coding\ 10
+    set guifont=consolas\ 10
 elseif has("mac")
     set guifont=D2Coding:h12
 elseif has("win32")
     au VimEnter * set lines=60 columns=180
-    set guifont=D2Coding:h11
+    set guifont=consolas:h11
     lang mes ko_KR.UTF-8 " language
     source $VIMRUNTIME/delmenu.vim
     source $VIMRUNTIME/menu.vim
