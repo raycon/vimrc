@@ -22,32 +22,12 @@ let $GIT_SSL_NO_VERIFY = 'true'
 " Specify a directory for plugins
 call plug#begin('~/.vim/plugged')
 
-" Essential --------------------------------------------------------------------
-
 Plug 'blerins/flattown'          " Color scheme
-Plug 'Yggdroot/indentLine'       " Indent guide line
-Plug 'luochen1990/rainbow'       " Colorize parentheses
 Plug 'scrooloose/nerdtree'       " File explorer
 Plug 'bling/vim-airline'         " Beautiful status line
 Plug 'easymotion/vim-easymotion' " Source navigation
-Plug 'Raimondi/delimitMate'      " Auto-completion for quotes, parens, brackets.
-Plug 'tomtom/tcomment_vim'       " Toggle comments
-Plug 'qpkorr/vim-bufkill'        " Close buffer without closing window
-Plug 'kien/ctrlp.vim'            " File buffer explorer
-
-" Sandbox ----------------------------------------------------------------------
-
-" Markdown support
-Plug 'godlygeek/tabular'
-Plug 'plasticboy/vim-markdown'
-
-" JavaScript
-Plug 'jelera/vim-javascript-syntax'
-
-" Toggle Quickfix and Location list
-Plug 'milkypostman/vim-togglelist'
-
-Plug 'chrisbra/Colorizer'
+Plug 'Yggdroot/indentLine'       " Indent guide line
+Plug 'tpope/vim-sensible'        " Defaults everyone can agree
 
 " Initialize plugin system
 call plug#end()
@@ -56,14 +36,8 @@ call plug#end()
 " GLOBAL SETTINGS
 "-------------------------------------------------------------------------------
 
-" Enable syntax highlighting
-syntax on
-
 " Set 7 line padding to cursor
 set so=7
-
-" Auto read when file is changed from outside
-set autoread
 
 " Highlight current line
 " set cursorline
@@ -72,27 +46,14 @@ set autoread
 set tabstop=4       " Column counts for tab
 set shiftwidth=4    " Column counts for <<, >>
 set softtabstop=4   " Space count for tab key in INSERT mode
-set smarttab        " When off, <Tab> will not inserts spaces in front of a line
 set expandtab       " Use spaces instead of tabs
-set autoindent      " Copy indent from current line when starting a new line
 set breakindent     " Every wrapped line will continue visually indented
 
 " Search
 set wrapscan        " Search wrap lines
-set incsearch       " Incrementally match the search
 set ignorecase      " Search ignore case
 set smartcase       " /foo matches FOO and fOo, but /FOO only matches the former
 set hlsearch        " Enable search highlighting
-
-" Allow backspacing over indent, eol, and the start of an insert
-set backspace=2
-
-" tell VIM to always put a status line in, even if there is only one window
-" (related with airline)
-set laststatus=2
-
-" Keep some stuff in the history
-set history=100
 
 " Any buffer can be hidden (keeping its changes) without write
 set hidden
@@ -104,9 +65,6 @@ set noswapfile
 
 " Don't redraw while executing macros (good performance config)
 set lazyredraw
-
-" Encoding
-set encoding=utf-8
 
 " Get rid of | character in split bar
 set fillchars+=vert:\  
@@ -249,7 +207,7 @@ elseif has("mac")
     set guifont=D2Coding:h12
 elseif has("win32")
     au VimEnter * set lines=60 columns=180
-    set guifont=consolas:h11
+    set guifont=D2Coding:h11
     lang mes ko_KR.UTF-8 " language
     source $VIMRUNTIME/delmenu.vim
     source $VIMRUNTIME/menu.vim
@@ -335,17 +293,5 @@ let NERDTreeShowBookmarks   = 1         " Always show bookmarks
 nnoremap <C-e> :NERDTreeToggle<CR> 
 nnoremap <leader>e :NERDTreeFind<CR>
 
-" CtrlP
-let g:ctrlp_working_path_mode = 'rw'    " Use pwd as working directory
-let g:ctrlp_cmd = 'CtrlPMixed'
-
-" DelimitMate
-let delimitMate_expand_cr = 1           " Add new line after {
-
-" Tabularize
-" Markdown table align
-inoremap <silent> <Bar>   <Bar><Esc>:call <SID>align()<CR>a
-au BufNewFile,BufRead *.markdown,*.mdown,*.mkd,*.mkdn,*.md setf markdown
-
 " IndentLine
-let g:indentLine_char = '|'
+let g:indentLine_char = '¦¢'
